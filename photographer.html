@@ -2,9 +2,11 @@
 <html>
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -13,7 +15,32 @@
     </header>
     <main id="main">
       <div class="photograph-header">
+        <div class="photograph-profile">
+          <h2>Prenom Nom</h2>
+          <span class="ville">Ville, Pays</span>
+          <span class="pres">Je suis ça et ça</span>
+        </div>
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="img-div">
+          <img src="/assets/photographers/account.png" alt="">
+        </div>
+      </div>
+      <div class="photo-section">
+        <div class="filter-section">
+          <span class="filter-section-title">Trier par</span>
+          <div class="filter-dropdown">
+            <a href="#" class="filter-btn">
+              <span>Popularité</span>
+              <i class="fas fa-chevron-up"></i>
+            </a>
+            <a href="#" class="filter-btn">
+              <span>Date</span>
+            </a>
+            <a href="#" class="filter-btn">
+              <span>Titre</span>
+            </a>
+          </div>
+        </div>
       </div>
     </main>
     <div id="contact_modal">

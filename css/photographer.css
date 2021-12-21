@@ -1,15 +1,19 @@
-#contact_modal {
-    display: none;
+main {
+    padding: 40px 100px;
 }
-
+/* Photograph-header  ----------------------------------------------*/
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    margin: 0;
+    padding: 40px 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    margin-bottom: 50px;
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     padding: 11px;
@@ -19,7 +23,107 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    margin: auto;
+    transform: translateY(20px);
 }
+
+.photograph-header .img-div {
+    margin: auto 0;
+    text-align: right;
+}
+/* Photograph-profile ------------*/
+
+.photograph-profile {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(20px);
+    
+}
+.photograph-profile h2 {
+    font-size: 64px;
+    margin-bottom: 0px;   
+}
+
+.photograph-profile .ville {
+    font-size:  24px;
+    margin-bottom: 15px;
+    color: #901C1C;
+}
+
+.photograph-profile .pres {
+    font-size:  18px;
+    color: #525252;
+}
+
+
+/* Filter ----------------------------------------------------------------------------*/
+
+.filter-section {
+    display: flex;
+    margin-bottom: 100px;
+    font-size: 18px;
+}
+
+.filter-section-title {
+    margin-top: 5px;
+}
+
+.filter-section span {
+    margin-right: 25px;
+}
+
+.filter-dropdown {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: #901C1C;
+    width: 170px;
+    
+
+}
+
+.filter-dropdown a {
+    text-decoration: none;
+}
+
+.filter-btn {
+   
+    color: white;
+    position: relative;
+    height: 25px;
+    width: 170px;
+    padding: 15px 20px;   
+}
+
+.filter-btn i {
+width: 16px;
+color: white;
+transform: rotate(180deg);
+}
+
+.filter-btn:nth-child(2)::before
+{
+    content: "";
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    position: absolute;
+    width: 70%;
+    height: 100%;
+    bottom: 0px;
+    left: 10px;
+}
+
+.filter-btn:nth-child(2), .filter-btn:nth-child(3) {
+     display: none;
+}
+
+
+
+#contact_modal {
+    display: none;
+}
+
+
 
 .modal {
     border-radius: 5px;
@@ -74,3 +178,4 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
