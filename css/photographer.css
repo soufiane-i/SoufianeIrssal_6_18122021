@@ -1,15 +1,13 @@
-main {
-    padding: 40px 100px;
-}
+
 /* Photograph-header  ----------------------------------------------*/
 .photograph-header {
     background-color: #FAFAFA;
-    height: 300px;
-    margin: 0;
-    padding: 40px 70px;
+    height: 370px;
+    margin: 40px 100px;
+    padding: 0 50px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr ;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .contact_button {
@@ -42,6 +40,7 @@ main {
 .photograph-profile h2 {
     font-size: 64px;
     margin-bottom: 0px;   
+    color: #D3573C;
 }
 
 .photograph-profile .ville {
@@ -59,9 +58,10 @@ main {
 /* Filter ----------------------------------------------------------------------------*/
 
 .filter-section {
-    display: flex;
-    margin-bottom: 100px;
+    display: flex;  
     font-size: 18px;
+    margin: 0px 100px;
+    margin-bottom: 40px;
 }
 
 .filter-section-title {
@@ -117,13 +117,130 @@ transform: rotate(180deg);
      display: none;
 }
 
+/* Section photos-------------------------------------------------------------------- */
+
+.cards-photo {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr 1fr;
+    
+
+}
+
+.card-photo {
+    padding-bottom: 30px;
+    margin: auto;
+}
+
+.card-photo-container {
+    width: 420px;
+    height: 360px;
+}
+.card-photo-container img {
+    width: 420px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.card-photo-bottom {
+    width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #901C1C;
+}
+
+.card-photo-bottom h3 {
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+.like-number {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+/* Like&price ----------------------------------------------------------------------------*/
+
+.like-and-price {
+    position: fixed;
+    bottom: 0;
+    right: 40px;
+    width: 350px;
+    height: 70px;
+    background-color: #DB8876;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 0 30px
+}
+
+.like-and-price span {
+    color: black;
+    font-size: 26px;
+}
+
+.like-and-price i {
+    color: black;
+}
+
+
+/* lightbox modal ----------------------------------------------------------------------*/
+
+.lightbox-modal {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-top: 20px;
+}
+
+.lightbox-modal img {
+    width: 1050px;
+    height: 740px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.lightbox-modal h3 {
+    font-size: 26px;
+    font-weight: lighter;
+    color: #901C1C;
+}
+
+.lightbox-modal i {
+    transform: rotate(-90deg);
+    margin: 0 30px;
+    color: #901C1C;
+}
+
+.lightbox-modal a:nth-child(1) i {
+    transform: rotate(-90deg);
+}
+
+.lightbox-modal a:nth-child(3) i {
+    transform: rotate(90deg);
+}
+
+.lightbox-modal .fa-times {
+    position: absolute;
+    top: 40px;
+    right: 260px;
+}
+
+
+
+
 
 
 #contact_modal {
     display: none;
 }
-
-
 
 .modal {
     border-radius: 5px;
