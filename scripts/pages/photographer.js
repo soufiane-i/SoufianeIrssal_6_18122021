@@ -1,1 +1,10 @@
-//Mettre le code JavaScript lié à la page photographer.html
+// DOM Elements
+const filterBtns = document.querySelectorAll('.filter-btn')
+const filterChevron = document.querySelector('.filter-chevron')
+
+filterBtns[0].addEventListener('click', () => {
+    for(let i = 1; i<filterBtns.length; i++) {
+        filterBtns[i].style.display = 'flex'
+        filterChevron.style.transform = 'rotate(0deg)'
+    }
+})

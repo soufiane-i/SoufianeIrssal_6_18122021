@@ -48,7 +48,8 @@ body{
     display: flex;  
     font-size: 18px;
     margin: 0px 100px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    position: relative;
 }
 
 .filter-section-title {
@@ -64,28 +65,34 @@ body{
     flex-direction: column;
     border-radius: 5px;
     background-color: #901C1C;
-    width: 170px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 80px;
     
-
 }
 
 .filter-dropdown a {
     text-decoration: none;
-}
-
-.filter-btn {
-   
+    width: 85%;
+    padding: 0px 15px;
     color: white;
-    position: relative;
-    height: 25px;
-    width: 170px;
-    padding: 15px 20px;   
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.filter-btn i {
-width: 16px;
-color: white;
-transform: rotate(180deg);
+.filter-btn span {
+    line-height: 0;  
+    margin: 0;
+    font-size: 18px;
+    width: 100%;
+}
+
+.filter-chevron {
+    color: white;
+    transform: rotate(180deg);
 }
 
 .filter-btn:nth-child(2)::before
@@ -94,14 +101,23 @@ transform: rotate(180deg);
     border-bottom: 1px solid white;
     border-top: 1px solid white;
     position: absolute;
-    width: 70%;
-    height: 100%;
-    bottom: 0px;
-    left: 10px;
+    width: 86%;
+    height: 60px;
+    top: 60px;
+    left: 12px;
+}
+
+
+.filter-btn:nth-child(2) {
+     top: 0px;
+}
+
+.filter-btn:nth-child(3) {
+    top: 0px;
 }
 
 .filter-btn:nth-child(2), .filter-btn:nth-child(3) {
-     display: none;
+   display: none;
 }
 
 /* Section photos-------------------------------------------------------------------- */
@@ -227,7 +243,7 @@ transform: rotate(180deg);
 
 
 #contact_modal {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;
     width: 100vw;
