@@ -1,5 +1,9 @@
 @import url("photographer.css");
 
+a{
+    text-decoration: none;
+    text-align: center;
+}
 
 body {
     font-family: "DM Sans", sans-serif;
@@ -29,7 +33,7 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .photographer_section article {
@@ -54,18 +58,19 @@ h1 {
     margin-bottom: 0px;
 }
 
-.photographer_section article .ville {
+.photographer_section article .location {
     font-size: 13px;
     color: #901C1C;
     margin-bottom: 3px;
 }
 
-.photographer_section article .specialité {
+.photographer_section article .tagLine {
     font-size: 10px;
     margin-bottom: 3px;
+    color: black;
 }
 
-.photographer_section article .prix {
+.photographer_section article .price {
     font-size: 13px;
     color: #757575;
 }

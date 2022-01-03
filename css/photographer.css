@@ -2,7 +2,7 @@ body{
     /* overflow: hidden; */
 }
 /* Photograph-header  ----------------------------------------------*/
-.photograph-header {
+.photographer-content {
     background-color: #FAFAFA;
     height: 370px;
     margin: 40px 100px;
@@ -12,31 +12,43 @@ body{
     margin-bottom: 30px;
 }
 
-.photograph-header .img-div {
+.photographer-content .img-div {
     margin: auto 0;
     text-align: right;
+    height: 240px;
+    width: 100%;
+    
+}
+
+.photographer-content .img-div img {
+    margin: auto 0;
+    text-align: right;
+    height: 100%;
+    width: 240px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 /* Photograph-profile ------------*/
 
-.photograph-profile {
+.photographer-profile {
     display: flex;
     flex-direction: column;
     transform: translateY(20px);
     
 }
-.photograph-profile h2 {
+.photographer-name {
     font-size: 64px;
     margin-bottom: 0px;   
     color: #D3573C;
 }
 
-.photograph-profile .ville {
+.photographer-city {
     font-size:  24px;
     margin-bottom: 15px;
     color: #901C1C;
 }
 
-.photograph-profile .pres {
+.photographer-tagline {
     font-size:  18px;
     color: #525252;
 }

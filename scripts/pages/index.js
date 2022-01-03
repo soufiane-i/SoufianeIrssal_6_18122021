@@ -1,4 +1,4 @@
-let data 
+
 
 async function getPhotographers(){
     
@@ -39,3 +39,5 @@ init()
 
 
 console.log(getPhotographers())
+
+console.log(window.location.search)
