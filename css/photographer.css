@@ -1,5 +1,4 @@
 body{
-    /* overflow: hidden; */
 }
 /* Photograph-header  ----------------------------------------------*/
 .photographer-content {
@@ -62,6 +61,7 @@ body{
     margin: 0px 100px;
     margin-bottom: 60px;
     position: relative;
+    
 }
 
 .filter-section-title {
@@ -81,31 +81,36 @@ body{
     position: absolute;
     top: 0;
     left: 80px;
+    height: auto;
     
 }
 
-.filter-dropdown a {
-    text-decoration: none;
-    width: 85%;
-    padding: 0px 15px;
-    color: white;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+ 
 
-.filter-btn span {
+.filter-btn {
     line-height: 0;  
-    margin: 0;
     font-size: 18px;
     width: 100%;
+    color: white;
+    padding: 0px 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    
 }
 
-.filter-chevron {
-    color: white;
-    transform: rotate(180deg);
+
+.filter-btn:nth-child(1)
+{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    transform: translateY(0);
+    
 }
+
 
 .filter-btn:nth-child(2)::before
 {
@@ -128,8 +133,21 @@ body{
     top: 0px;
 }
 
-.filter-btn:nth-child(2), .filter-btn:nth-child(3) {
+.filter-chevron {
+    
+    transform: rotate(0deg);
+    text-align: left;
+    width: 20px;
+    margin-right: auto;
+}
+ 
+
+.filter-btn-disable {
    display: none;
+}  
+
+.filter-btn-chevron-disable {
+    transform: rotate(180deg);
 }
 
 /* Section photos-------------------------------------------------------------------- */
@@ -137,7 +155,7 @@ body{
 .cards-photo {
     display: grid;
     grid-template-columns: 1fr 0.8fr 1fr;
-    
+    margin-bottom: 40px;
 
 }
 
@@ -149,8 +167,9 @@ body{
 .card-photo-container {
     width: 420px;
     height: 360px;
+    cursor: pointer;
 }
-.card-photo-container img {
+.card-photo-container img, .card-photo-container video {
     width: 420px;
     height: 360px;
     object-fit: cover;
@@ -165,14 +184,19 @@ body{
     color: #901C1C;
 }
 
-.card-photo-bottom h3 {
+.card-photo-title {
     font-size: 24px;
     margin: 15px 0;
+    cursor: pointer;
 }
 
-.like-number {
+.like-local-number, .like-number {
     font-size: 24px;
     margin-right: 5px;
+}
+
+.heart {
+    cursor: pointer;
 }
 
 /* Like&price ----------------------------------------------------------------------------*/
@@ -187,11 +211,12 @@ body{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 30px
 }
 
-.like-and-price span {
+.price  {
     color: black;
     font-size: 26px;
 }
@@ -213,14 +238,30 @@ body{
     align-items: center;
     background-color: white;
     padding-top: 20px;
-    display: none;
 }
 
-.lightbox-modal img {
+.lightbox-modal-disable {
+    display: none;
+    
+}
+
+.lightbox-img {
     width: 1050px;
     height: 740px;
     object-fit: cover;
     border-radius: 5px;
+    display: flex;
+}
+
+.lightbox-modal video {
+    width: 1050px;
+    height: 740px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.lightbox-element-disable {
+    display: none;
 }
 
 .lightbox-modal h3 {
@@ -230,23 +271,22 @@ body{
 }
 
 .lightbox-modal i {
-    transform: rotate(-90deg);
     margin: 0 30px;
     color: #901C1C;
-}
-
-.lightbox-modal a:nth-child(1) i {
-    transform: rotate(-90deg);
-}
-
-.lightbox-modal a:nth-child(3) i {
-    transform: rotate(90deg);
 }
 
 .lightbox-modal .fa-times {
     position: absolute;
     top: 40px;
     right: 260px;
+}
+
+.lightbox-next {
+    transform: rotate(90deg);
+}
+
+.lightbox-prev {
+    transform: rotate(-90deg);
 }
 
 
@@ -293,7 +333,6 @@ body{
 .modal header h2 {
     font-size: 60px;
     font-weight: normal;
-    text-align: center;
     margin: 0;
     
 }

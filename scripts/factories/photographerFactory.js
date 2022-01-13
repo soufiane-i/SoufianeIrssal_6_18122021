@@ -1,7 +1,7 @@
 function photographerFactory(data) {
     const { name, portrait, city, country, tagline, price, id } = data
 
-    const photographerPortrait = `assets/photographers/${portrait}`
+    const photographerPortrait = `assets/media/Photographers ID Photos/${portrait}`
 
 
     //Get id in Url----------------------------------------------------------------------
@@ -16,18 +16,16 @@ function photographerFactory(data) {
     //------------------------------------------------------------------------------------
 
     if(urlParams.has('id')){
-        
-        //console.log('id et tout')
         getUserProfileDOM() 
         return { name, photographerPortrait, city, country, tagline, price, id, getUserProfileDOM }
     } else if(urlParams.has('id') == false) {
-        //console.log('empty')
-        getUserCardDOM
+        getUserCardDOM()
         return { name, photographerPortrait, city, country, tagline, price, id, getUserCardDOM }
     }
 
 
     function getUserProfileDOM() {
+        const contactName = document.querySelector('.contact-name')
         const photographerContent = document.createElement('div')
         const photographerProfile = document.createElement('div')
         const imgDiv = document.createElement('div')
@@ -56,7 +54,7 @@ function photographerFactory(data) {
         photographerContent.appendChild(photographerBtn)
         imgDiv.appendChild(photographerPhoto)
         photographerContent.appendChild(imgDiv)
-
+        contactName.textContent = data.name
         return(photographerContent)
 
     }
