@@ -46,39 +46,36 @@ function mediaFactory(data) {
         
 
         cardPhotoTitle.textContent = title
-        cardPhotoLikeSection.innerHTML = '<span class="like-local-number">0</span><i class="fas fa-heart fa-lg like-heart heart"></i>'
+        cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${likes}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
 
         cardPhoto.appendChild(cardPhotoContainer)
         cardPhoto.appendChild(cardPhotoBottom)
         cardPhotoBottom.appendChild(cardPhotoTitle)
         cardPhotoBottom.appendChild(cardPhotoLikeSection)
 
-   
-        
-        
         if (video == undefined) {
             const cardPhotoImg = document.createElement('img')
             cardPhotoImg.setAttribute('src', imageAsset)
             cardPhotoImg.classList.add('media')
             cardPhotoImg.setAttribute('name', title)
+            cardPhotoImg.setAttribute('alt', title)
             cardPhotoContainer.appendChild(cardPhotoImg)
         } else if (image == undefined) {
             const cardPhotoImg = document.createElement('video')
             cardPhotoImg.setAttribute('src', videoAsset)
-            cardPhotoImg.setAttribute('controls', 'controls')
+            cardPhotoImg.classList.add('videoElement')
             cardPhotoImg.classList.add('media')
             cardPhotoImg.setAttribute('name', title)
+            cardPhotoImg.setAttribute('alt', title)
             cardPhotoContainer.appendChild(cardPhotoImg)
 
         } 
 
+        
+
         return(cardPhoto)
 
     } return { id, photographerId, title, image, video, likes, date, price, getImageCardDOM }
-
-
-
-    
 } 
 
 

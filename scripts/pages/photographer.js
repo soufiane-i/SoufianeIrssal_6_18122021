@@ -53,17 +53,21 @@ async function displayData(photographer) {
     price.textContent = photographer.price   
 }
 
+let heartTotal = document.querySelector('.like-number')
 
-function displayMedias(mediasProp, heartEvent, mediasClickEvent) {
+function displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent) {
     const mediasSection = document.querySelector('.cards-photo')
     mediasProp.forEach((media) => {
         const mediaModel = mediaFactory(media)
         const mediaCardDOM = mediaModel.getImageCardDOM()
         mediasSection.appendChild(mediaCardDOM)
+        heartTotal.textContent = parseInt(heartTotal.textContent) + media.likes 
+
         
     })
     heartEvent()
     mediasClickEvent()
+    titleFilterEvent()
 }
 
 async function init() {
@@ -71,7 +75,7 @@ async function init() {
     const { photographer } = await getPhotographer()
     const { mediasProp } = await getMedias()
     displayData(photographer)
-    displayMedias(mediasProp, heartEvent, mediasClickEvent)
+    displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent)
 }
 
 getMedias()
@@ -79,12 +83,14 @@ init()
 
 //Système de like---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-let heartTotal = document.querySelector('.like-number')
+
 let hearts = document.getElementsByClassName('heart')
+let likeLocalNumber = document.getElementsByClassName('like-local-number')
 
-let likeTotal = 0
+let likeTotal
 
-heartTotal.textContent = likeTotal
+
+
 
 //Ecoute des cliques sur les coeurs de chaques element de la section media
 function heartEvent() {
@@ -129,26 +135,27 @@ function mediasClickFunction(e) {
     //recuperation de l'élement cliqué avec son src et son name
     let targetMedia = e.target
     let targetMediasSrc = targetMedia.src
-    let targetMediasTitle = targetMedia.name
+    let targetMediasTitle = targetMedia.getAttribute('name')
     //Récuperation d'élément du DOM
     let lightboxImg = document.querySelector('.lightbox-img')
     let lightboxVideo = document.querySelector('.lightbox-video')
     let lightboxTitle = document.querySelector('.lightbox-title')
     
-    
     /*Si le lightboxContainer ne contient ni photo ni video, create l'élement souhaité avec le bon receptacle(img ou video)
     tout en creant l'autre mais caché afin de ne pas avoir à en creer à chaque fois mais seulement à changer le src, le name et le titre */ 
     if(lightboxContainer.childElementCount == 0) {
-        if(targetMedia.hasAttribute('controls')) {
-
-            lightboxVideo = document.createElement('video')
-            lightboxVideo.classList.add('lightbox-video')
-            lightboxVideo.setAttribute('src', targetMediasSrc)
-            lightboxContainer.appendChild(lightboxVideo)
-
+        if(targetMedia.classList.contains('videoElement')) {
+            
             lightboxImg = document.createElement('img')
             lightboxImg.classList.add('lightbox-img', 'lightbox-element-disable')
             lightboxContainer.appendChild(lightboxImg)
+
+            lightboxVideo = document.createElement('video')
+            lightboxVideo.setAttribute('name', targetMediasTitle)
+            lightboxVideo.classList.add('lightbox-video')
+            lightboxVideo.setAttribute('src', targetMediasSrc)
+            lightboxVideo.setAttribute('controls', 'controls')
+            lightboxContainer.appendChild(lightboxVideo)
 
         } else {
             
@@ -168,7 +175,12 @@ function mediasClickFunction(e) {
         lightboxTitle.classList.add('lightbox-title')
 
     } else {
-            if(targetMedia.hasAttribute('controls')) {
+            if(targetMedia.classList.contains('videoElement')) {
+                lightboxImg.setAttribute('name', targetMediasTitle)
+                lightboxVideo.classList.add('lightbox-video')
+                lightboxVideo.setAttribute('src', targetMediasSrc)
+                lightboxContainer.appendChild(lightboxVideo)
+                lightboxVideo.classList.remove('lightbox-element-disable')
             } else {
                 lightboxImg.setAttribute('name', targetMediasTitle)
                 lightboxImg.classList.add('lightbox-img')
@@ -236,24 +248,24 @@ function lightboxSliding(direction, arrow) {
         actualElement = mediasClick.namedItem(actualImgName)
     }
 
-
     //Direction == 1 correspond au next appelé dans la fonction nextMedia et 0 l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
     if (direction == 1) {
         nextElement = actualElement.parentNode.parentNode.nextSibling.childNodes[0].childNodes[0]
     } else {
         nextElement = actualElement.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0]
     }
-
+    
     // On récupère le nom et le src de l'élément suivant  à afficher
     let nextElementName = nextElement.getAttribute('name') 
     let nextElementSrc = nextElement.src
 
     // En fonction de si l'élement à afficher est une img ou une video (grace à la fonction control des videos) faire apparaitre le bon receptacle
-    if(nextElement.hasAttribute('controls')) {
+    if(nextElement.classList.contains('videoElement')) {
         lightboxImg.classList.add('lightbox-element-disable')
         lightboxVideo.classList.remove('lightbox-element-disable')
         lightboxVideo.setAttribute('src', nextElementSrc)
         lightboxVideo.setAttribute('name', nextElementName)
+        lightboxVideo.setAttribute('controls', 'controls')
     } else {
         lightboxVideo.classList.add('lightbox-element-disable')
         lightboxImg.classList.remove('lightbox-element-disable')
@@ -262,4 +274,36 @@ function lightboxSliding(direction, arrow) {
     } 
     // Mise à jour du texte correspondant à l'élément
     lightboxTitle.textContent = nextElementName
+}
+
+
+
+//Filtre
+const dropdownFilter = document.querySelector('.filter-dropdown')
+const popularityFilter = document.querySelector('.filter-popularity')
+const dateFilter = document.querySelector('.filter-date')
+const titleFilter = document.querySelector('.filter-title')
+
+let dropdownOpen = 0
+
+dropdownFilter.addEventListener('click', () => {
+    dropdownOpen = 1
+})
+
+function titleFilterEvent() {
+    titleFilter.addEventListener('click', titleFilterClik)
+}
+
+
+function titleFilterClik() {
+    //HTMLCollection to Array
+    let elements = [].slice.call(mediasClick)
+    
+    var sortable = [];
+    for (var element in elements) {
+    sortable.push([element, elements[element]]);
+    }
+
+
+    console.log(sortable[1][1].name);
 }

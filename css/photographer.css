@@ -1,5 +1,9 @@
 body{
 }
+
+header a {
+    margin-left: 0;
+}
 /* Photograph-header  ----------------------------------------------*/
 .photographer-content {
     background-color: #FAFAFA;
@@ -58,27 +62,23 @@ body{
 .filter-section {
     display: flex;  
     font-size: 18px;
-    margin: 0px 100px;
+    margin-left: 100px;
     margin-bottom: 60px;
     position: relative;
-    
 }
 
 .filter-section-title {
     margin-top: 5px;
-}
-
-.filter-section span {
-    margin-right: 25px;
+    margin-right: 0;
 }
 
 .filter-dropdown {
     display: flex;
+    position: absolute;
     flex-direction: column;
     border-radius: 5px;
     background-color: #901C1C;
-    width: 200px;
-    position: absolute;
+    width: 180px;
     top: 0;
     left: 80px;
     height: auto;
@@ -86,11 +86,9 @@ body{
 }
 
  
-
 .filter-btn {
     line-height: 0;  
     font-size: 18px;
-    width: 100%;
     color: white;
     padding: 0px 15px;
     height: 60px;
@@ -98,16 +96,12 @@ body{
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    
 }
 
 
 .filter-btn:nth-child(1)
 {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    align-items: center;
-    transform: translateY(0);
+
     
 }
 
@@ -134,11 +128,7 @@ body{
 }
 
 .filter-chevron {
-    
     transform: rotate(0deg);
-    text-align: left;
-    width: 20px;
-    margin-right: auto;
 }
  
 
@@ -248,7 +238,7 @@ body{
 .lightbox-img {
     width: 1050px;
     height: 740px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 5px;
     display: flex;
 }
