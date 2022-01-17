@@ -118,6 +118,9 @@ const lightboxPrev = document.querySelector('.lightbox-prev')
 const lightboxNext = document.querySelector('.lightbox-next')
 
 
+
+
+
 //Ecoute des cliques sur les elements de la section media
 function mediasClickEvent() { 
     for (let i = 0; i < mediasClick.length; i++) {
@@ -136,6 +139,7 @@ function mediasClickFunction(e) {
     let targetMedia = e.target
     let targetMediasSrc = targetMedia.src
     let targetMediasTitle = targetMedia.getAttribute('name')
+    
     //Récuperation d'élément du DOM
     let lightboxImg = document.querySelector('.lightbox-img')
     let lightboxVideo = document.querySelector('.lightbox-video')
@@ -290,13 +294,17 @@ dropdownFilter.addEventListener('click', () => {
     dropdownOpen = 1
 })
 
+
+
+
+
 function titleFilterEvent() {
     titleFilter.addEventListener('click', titleFilterClik)
 }
 
 
 function titleFilterClik() {
-    //HTMLCollection to Array
+/*     //HTMLCollection to Array
     let elements = [].slice.call(mediasClick)
     
     var sortable = [];
@@ -304,6 +312,91 @@ function titleFilterClik() {
     sortable.push([element, elements[element]]);
     }
 
+    sortable.sort((a, b) => (a[1].getAttribute('name') > b[1].getAttribute('name')) ? 1 : -1)
 
-    console.log(sortable[1][1].name);
+    let mediasSection = document.querySelector('.cards-photo')
+    let medias = document.querySelectorAll('.media')
+    let mediasContainer = document.querySelectorAll('.card-photo-container')
+    let mediasTitle = document.querySelectorAll('.card-photo-title')
+    let actualLikeNumber = document.querySelectorAll('.like-local-number')
+    console.log(sortable)
+    for(let i = 0; i < medias.length; i++) {
+        let element
+        if (sortable[i][1].classList.contains('videoElement')) {
+            element = document.createElement('video')
+            element.classList.add('videoElement')
+            
+        } else {
+            element = document.createElement('img')
+        }
+        element.classList.add('media')
+        element.setAttribute('name', sortable[i][1].name)
+        medias[i].remove()
+        element.setAttribute('src', sortable[i][1].src)
+        mediasTitle[i].textContent = sortable[i][1].name
+        mediasContainer[i].appendChild(element)
+
+
+    } */
+    let elements = [].slice.call(mediasClick)
+    
+    var sortable = []
+    for (var element in elements) {
+    sortable.push([element, elements[element]])
+    }
+
+    sortable.sort((a, b) => (a[1].getAttribute('name') > b[1].getAttribute('name')) ? 1 : -1)
+    console.log(sortable[0][1].name)
+    let medias = document.querySelectorAll('.card-photo')
+    for(let i = 0; i < medias.length; i++) {
+        medias[i].remove()
+    }
+    sortable.forEach((media) => {
+        const mediasSection = document.querySelector('.cards-photo')
+        const cardPhoto = document.createElement('div')
+        const cardPhotoContainer = document.createElement('div')
+        const cardPhotoBottom = document.createElement('div')
+        const cardPhotoTitle = document.createElement('div')
+        const cardPhotoLikeSection = document.createElement('div')
+
+    
+
+        cardPhoto.classList.add('card-photo')
+        cardPhotoContainer.classList.add('card-photo-container')
+        cardPhotoBottom.classList.add('card-photo-bottom')
+        cardPhotoTitle.classList.add('card-photo-title')
+        cardPhotoLikeSection.classList.add('like-photo')
+        
+
+        cardPhotoTitle.textContent = media[1].getAttribute('name')
+        cardPhotoLikeSection.innerHTML = `<span class="like-local-number"></span><i class="fas fa-heart fa-lg like-heart heart"></i>`
+
+        cardPhoto.appendChild(cardPhotoContainer)
+        cardPhoto.appendChild(cardPhotoBottom)
+        cardPhotoBottom.appendChild(cardPhotoTitle)
+        cardPhotoBottom.appendChild(cardPhotoLikeSection)
+        let cardPhotoImg
+        if (media[1].classList.contains('videoElement'))
+        {
+            cardPhotoImg = document.createElement('video')
+            cardPhotoImg.classList.add('videoElement')
+        } else {
+            cardPhotoImg = document.createElement('img')
+            
+        }
+
+        cardPhotoImg.setAttribute('src', media[1].src)
+        cardPhotoImg.classList.add('media')
+        cardPhotoImg.setAttribute('name', media[1].getAttribute('name'))
+        cardPhotoImg.setAttribute('alt', media[1].getAttribute('name'))
+        cardPhotoContainer.appendChild(cardPhotoImg)
+        mediasSection.appendChild(cardPhoto)
+        
+
+        
+    })
+    heartEvent()
+    mediasClickEvent()
+
 }
+
