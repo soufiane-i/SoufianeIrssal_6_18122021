@@ -48,7 +48,7 @@ function submitFunct(e){
 
   // function which clear form after submit success
 function submitClear(){
-    console.log('ok');
+    console.log('Formulaire envoyé');
     for(let i = 0; i<champs.length; i++){  // loop which clear form inputs 
      champs[i].value = ''
     }
@@ -62,7 +62,7 @@ function submitClear(){
       formDataArray.push('check')                           // add 'check' in formDataArray array to count how many input forms are valid
      
     } else {
-   
+      alert('Prenom incorrect')
 
     }
   }
@@ -71,8 +71,7 @@ function submitClear(){
     if (lastNameRegex.test(lastName.value.trim())) {
       formDataArray.push('check')
     } else {
-      
-  
+      alert('Nom incorrect')
     }
   }
   
@@ -81,7 +80,7 @@ function submitClear(){
     if (emailRegex.test(email.value.trim())) {
       formDataArray.push('check')
     } else {
-
+      alert('Email incorrect')
       
     }
     }
@@ -90,14 +89,12 @@ function submitClear(){
         if (lastNameRegex.test(message.value.trim())) {
           formDataArray.push('check')
         } else {
-    
-          
         }
     }
 
     function displayModal() {
     
-        modal.style.display = 'block'
+        modal.style.display = 'flex'
     }
     
     function closeModal() {

@@ -76,11 +76,6 @@ header a {
     font-size: 18px;
 }
 
-.filter-btn {
-
-}
-
-
 /* .filter-btn:nth-child(2)::before
 {
     content: "";
@@ -262,41 +257,46 @@ header a {
 #contact_modal {
     display: none;
     position: fixed;
+    align-items: space;
     top: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(141, 141, 141, 0.5);
+    z-index: 5;
+    
 }
 
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 35%;
+    width: 30%;
     height: 86%;
     display: flex;
     flex-direction: column;
     align-items: left;
-    justify-content: space-between;
     padding: 35px;
     padding-top: 5px;
     margin: auto;
+    box-shadow: -15px 10px 20px rgba(0, 0, 0, 0.1)
 }
 
-.modal header {
+.modal .modal-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     height: 150px;
-    margin-bottom: 15px;
+    padding-top: 10px
 }
 
-.modal header img {
+.modal .modal-header img {
     cursor: pointer;
+    transform: translateY(-45px) translateX(10px);
+    width: 30px;
 }
 
-.modal header h2 {
-    font-size: 60px;
+.modal .modal-header h2 {
+    font-size: 45px;
     font-weight: normal;
     margin: 0;
     
@@ -307,8 +307,8 @@ header a {
     text-align: left;
 }
 
-.modal header span {
-    font-size: 60px;
+.modal .modal-header span {
+    font-size: 50px;
 }
 
 form {
@@ -320,7 +320,7 @@ form {
 
 form label {
     color: #312E2E;
-    font-size: 34px;
+    font-size: 28px;
 }
 
 form div {

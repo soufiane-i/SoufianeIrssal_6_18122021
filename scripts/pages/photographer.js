@@ -96,7 +96,6 @@ let heartsTot
 //Ecoute des cliques sur les coeurs de chaques element de la section media
 function heartEvent() {
     for (let i = 0; i < hearts.length; i++) {
-        console.log(hearts[i]);
         hearts[i].addEventListener("click", heartClick) 
     }
 }
@@ -140,6 +139,7 @@ lightboxNext.addEventListener('click', nextMedia)
 // Fonction appélée lors du clique sur un element dans la section media
 function mediasClickFunction(e) {
     //recuperation de l'élement cliqué avec son src et son name
+    console.log(e);
     let targetMedia = e.target
     let targetMediasSrc = targetMedia.src
     let targetMediasTitle = targetMedia.getAttribute('name')
@@ -297,41 +297,6 @@ const titleFilter = document.querySelector('.filter-title')
 
 
 
-
-
-filterBtns[0].addEventListener('click', () => {
-
-        //filterChevron.classList.toggle('filter-btn-chevron-disable')
-})
-
-
-
-dateFilter.addEventListener('click', () => {
-
-
-
-    //filterChevron.classList.toggle('filter-btn-chevron-disable')
-
-})
-
-titleFilter.addEventListener('click', () => {
-
-
-
-    //filterChevron.classList.toggle('filter-btn-chevron-disable')
-    
-    
-
-})
-
-
-
-
-
-
-
-
-
 function titleFilterEvent() {
     titleFilter.addEventListener('click', titleFilterClik)
 }
@@ -416,6 +381,7 @@ function titleFilterClik() {
         cardPhotoImg.setAttribute('name', media[1].getAttribute('name'))
         cardPhotoImg.setAttribute('alt', media[1].getAttribute('name'))
         cardPhotoImg.setAttribute('id', media[1].getAttribute('name'))
+        cardPhotoImg.setAttribute('data-date', media[1].dataset.date)
         cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
         cardPhoto.appendChild(cardPhotoContainer)
         cardPhoto.appendChild(cardPhotoBottom)
@@ -426,7 +392,7 @@ function titleFilterClik() {
  
     })
     heartEvent()
-    
+    mediasClickEvent()
 }
 
 function popularityFilterClik() {
@@ -494,12 +460,13 @@ function popularityFilterClik() {
             }
 
             
-    
+            console.log(media.childNodes[0].childNodes[0].dataset.date);
             cardPhotoImg.setAttribute('src', media.childNodes[0].childNodes[0].src)
             cardPhotoImg.classList.add('media')
             cardPhotoImg.setAttribute('name', media.childNodes[0].childNodes[0].getAttribute('name'))
             cardPhotoImg.setAttribute('alt', media.childNodes[0].childNodes[0].getAttribute('name'))
             cardPhotoImg.setAttribute('id', media.childNodes[0].childNodes[0].getAttribute('name'))
+            cardPhotoImg.setAttribute('data-date', media.childNodes[0].childNodes[0].dataset.date)
             cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
             cardPhoto.appendChild(cardPhotoContainer)
             cardPhoto.appendChild(cardPhotoBottom)
@@ -510,15 +477,12 @@ function popularityFilterClik() {
      
         })
         heartEvent()
+        mediasClickEvent()
 }
 
 
 function dateFilterClik() {
-/*     array.sort(function(a,b){
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
-        return new Date(b.date) - new Date(a.date);
-      }); */
+
 
     let actualLikeNumbers = {}
     let nameAndLikes = { name : '', likes: ''}
@@ -534,7 +498,7 @@ function dateFilterClik() {
     console.log(elements[0].childNodes[0].childNodes[0].dataset.date);
 
     
-    elements.sort(function (a, b) {return new Date(a.childNodes[0].childNodes[0].dataset.date) - new Date(b.childNodes[0].childNodes[0].dataset.date)});
+    elements.sort(function (a, b) {return new Date(a.childNodes[0].childNodes[0].dataset.date).getTime() - new Date(b.childNodes[0].childNodes[0].dataset.date).getTime()});
     console.log(elements)
     let medias = document.querySelectorAll('.card-photo')
     let actualLikeLocalNumber = document.querySelectorAll('.like-local-number')
@@ -586,6 +550,7 @@ function dateFilterClik() {
                 newLike = nameAndLikesTotal[i].likes
             }
         }
+    
         cardPhotoImg.setAttribute('src', media.childNodes[0].childNodes[0].src)
         cardPhotoImg.classList.add('media')
         cardPhotoImg.setAttribute('name', media.childNodes[0].childNodes[0].getAttribute('name'))
@@ -604,5 +569,5 @@ function dateFilterClik() {
 
     }) 
     heartEvent()
-    
+    mediasClickEvent()
 }
