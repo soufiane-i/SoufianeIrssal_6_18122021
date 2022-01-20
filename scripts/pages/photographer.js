@@ -55,7 +55,7 @@ async function displayData(photographer) {
 
 let heartTotal = document.querySelector('.like-number')
 
-function displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent) {
+function displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent, popularityFilterEvent, dateFilterEvent) {
     const mediasSection = document.querySelector('.cards-photo')
     mediasProp.forEach((media) => {
         const mediaModel = mediaFactory(media)
@@ -68,6 +68,8 @@ function displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEven
     heartEvent()
     mediasClickEvent()
     titleFilterEvent()
+    popularityFilterEvent()
+    dateFilterEvent()
 }
 
 async function init() {
@@ -75,7 +77,7 @@ async function init() {
     const { photographer } = await getPhotographer()
     const { mediasProp } = await getMedias()
     displayData(photographer)
-    displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent)
+    displayMedias(mediasProp, heartEvent, mediasClickEvent, titleFilterEvent, popularityFilterEvent, dateFilterEvent)
 }
 
 getMedias()
@@ -84,26 +86,29 @@ init()
 //Système de like---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-let hearts = document.getElementsByClassName('heart')
-let likeLocalNumber = document.getElementsByClassName('like-local-number')
+
 
 let likeTotal
-
-
+let hearts = document.getElementsByClassName('heart')
+let heartsTot
 
 
 //Ecoute des cliques sur les coeurs de chaques element de la section media
 function heartEvent() {
     for (let i = 0; i < hearts.length; i++) {
+        console.log(hearts[i]);
         hearts[i].addEventListener("click", heartClick) 
     }
 }
 
 //A chaque clique, le ccompteur du coeur local et du coeur global sont incrementés
 function heartClick(e) {
+
+    console.log(e);
     let targetHeart = e.target.parentNode.firstChild
     heartTotal.textContent++
     targetHeart.textContent++ 
+    console.log(targetHeart);
 }
 
 
@@ -116,7 +121,6 @@ let lightboxContainer = document.querySelector('.lightbox-container')
 const lightboxCrossBtn = document.querySelector('.fa-times')
 const lightboxPrev = document.querySelector('.lightbox-prev')
 const lightboxNext = document.querySelector('.lightbox-next')
-
 
 
 
@@ -283,16 +287,46 @@ function lightboxSliding(direction, arrow) {
 
 
 //Filtre
+// DOM Elements
+const filterBtns = document.querySelectorAll('.filter-btn')
+const filterChevron = document.querySelector('.filter-chevron')
 const dropdownFilter = document.querySelector('.filter-dropdown')
 const popularityFilter = document.querySelector('.filter-popularity')
 const dateFilter = document.querySelector('.filter-date')
 const titleFilter = document.querySelector('.filter-title')
 
-let dropdownOpen = 0
 
-dropdownFilter.addEventListener('click', () => {
-    dropdownOpen = 1
+
+
+
+filterBtns[0].addEventListener('click', () => {
+
+        //filterChevron.classList.toggle('filter-btn-chevron-disable')
 })
+
+
+
+dateFilter.addEventListener('click', () => {
+
+
+
+    //filterChevron.classList.toggle('filter-btn-chevron-disable')
+
+})
+
+titleFilter.addEventListener('click', () => {
+
+
+
+    //filterChevron.classList.toggle('filter-btn-chevron-disable')
+    
+    
+
+})
+
+
+
+
 
 
 
@@ -302,80 +336,65 @@ function titleFilterEvent() {
     titleFilter.addEventListener('click', titleFilterClik)
 }
 
+function popularityFilterEvent() {
+    popularityFilter.addEventListener('click', popularityFilterClik)
+}
+
+function dateFilterEvent() {
+    dateFilter.addEventListener('click', dateFilterClik)
+    
+}
+
+let numberArrayindex = 0 
 
 function titleFilterClik() {
-/*     //HTMLCollection to Array
+    //HTMLCollection to Array
+    let actualLikeNumbers = {}
+    let nameAndLikes = { name : '', likes: ''}
+    let nameAndLikesTotal = []
     let elements = [].slice.call(mediasClick)
-    
-    var sortable = [];
-    for (var element in elements) {
-    sortable.push([element, elements[element]]);
-    }
-
-    sortable.sort((a, b) => (a[1].getAttribute('name') > b[1].getAttribute('name')) ? 1 : -1)
-
-    let mediasSection = document.querySelector('.cards-photo')
-    let medias = document.querySelectorAll('.media')
-    let mediasContainer = document.querySelectorAll('.card-photo-container')
-    let mediasTitle = document.querySelectorAll('.card-photo-title')
-    let actualLikeNumber = document.querySelectorAll('.like-local-number')
-    console.log(sortable)
-    for(let i = 0; i < medias.length; i++) {
-        let element
-        if (sortable[i][1].classList.contains('videoElement')) {
-            element = document.createElement('video')
-            element.classList.add('videoElement')
-            
-        } else {
-            element = document.createElement('img')
-        }
-        element.classList.add('media')
-        element.setAttribute('name', sortable[i][1].name)
-        medias[i].remove()
-        element.setAttribute('src', sortable[i][1].src)
-        mediasTitle[i].textContent = sortable[i][1].name
-        mediasContainer[i].appendChild(element)
-
-
-    } */
-    let elements = [].slice.call(mediasClick)
-    
     var sortable = []
     for (var element in elements) {
     sortable.push([element, elements[element]])
     }
 
     sortable.sort((a, b) => (a[1].getAttribute('name') > b[1].getAttribute('name')) ? 1 : -1)
-    console.log(sortable[0][1].name)
-    let medias = document.querySelectorAll('.card-photo')
-    for(let i = 0; i < medias.length; i++) {
-        medias[i].remove()
-    }
-    sortable.forEach((media) => {
-        const mediasSection = document.querySelector('.cards-photo')
-        const cardPhoto = document.createElement('div')
-        const cardPhotoContainer = document.createElement('div')
-        const cardPhotoBottom = document.createElement('div')
-        const cardPhotoTitle = document.createElement('div')
-        const cardPhotoLikeSection = document.createElement('div')
-
     
+    let medias = document.querySelectorAll('.card-photo')
+    let actualLikeLocalNumber = document.querySelectorAll('.like-local-number')
+    for(let i = 0; i < medias.length; i++) {
+        
+        
+        medias[i].remove()
+        
+        
+    }
+    
+    for(let i = 0; i < elements.length; i++) {
+        nameAndLikes.name = elements[i].getAttribute('name')
+        nameAndLikes.likes = elements[i].parentNode.parentNode.childNodes[1].childNodes[1].childNodes[0].textContent
+        nameAndLikesTotal.push(nameAndLikes)
+        nameAndLikes = []
+    }
+   
+   
+    sortable.forEach((media) => {
+        let mediasSection = document.querySelector('.cards-photo')
+        let cardPhoto = document.createElement('div')
+        let cardPhotoContainer = document.createElement('div')
+        let cardPhotoBottom = document.createElement('div')
+        let cardPhotoTitle = document.createElement('div')
+        let cardPhotoLikeSection = document.createElement('div')
+        let cardPhotoImg
+        let newLike
 
         cardPhoto.classList.add('card-photo')
         cardPhotoContainer.classList.add('card-photo-container')
         cardPhotoBottom.classList.add('card-photo-bottom')
         cardPhotoTitle.classList.add('card-photo-title')
         cardPhotoLikeSection.classList.add('like-photo')
-        
-
         cardPhotoTitle.textContent = media[1].getAttribute('name')
-        cardPhotoLikeSection.innerHTML = `<span class="like-local-number"></span><i class="fas fa-heart fa-lg like-heart heart"></i>`
-
-        cardPhoto.appendChild(cardPhotoContainer)
-        cardPhoto.appendChild(cardPhotoBottom)
-        cardPhotoBottom.appendChild(cardPhotoTitle)
-        cardPhotoBottom.appendChild(cardPhotoLikeSection)
-        let cardPhotoImg
+        
         if (media[1].classList.contains('videoElement'))
         {
             cardPhotoImg = document.createElement('video')
@@ -384,19 +403,206 @@ function titleFilterClik() {
             cardPhotoImg = document.createElement('img')
             
         }
+   
+        
+        for(let i = 0; i < elements.length; i++) {
+            if(nameAndLikesTotal[i].name ===  media[1].getAttribute('name')){
+                newLike = nameAndLikesTotal[i].likes
+            }
+        }
 
         cardPhotoImg.setAttribute('src', media[1].src)
         cardPhotoImg.classList.add('media')
         cardPhotoImg.setAttribute('name', media[1].getAttribute('name'))
         cardPhotoImg.setAttribute('alt', media[1].getAttribute('name'))
+        cardPhotoImg.setAttribute('id', media[1].getAttribute('name'))
+        cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
+        cardPhoto.appendChild(cardPhotoContainer)
+        cardPhoto.appendChild(cardPhotoBottom)
+        cardPhotoBottom.appendChild(cardPhotoTitle)
+        cardPhotoBottom.appendChild(cardPhotoLikeSection)
         cardPhotoContainer.appendChild(cardPhotoImg)
         mediasSection.appendChild(cardPhoto)
-        
-
-        
+ 
     })
     heartEvent()
-    mediasClickEvent()
-
+    
 }
 
+function popularityFilterClik() {
+
+        let actualLikeNumbers = {}
+        let nameAndLikes = { name : '', likes: ''}
+        let nameAndLikesTotal = []
+
+
+        
+        let likeLocalNumber = document.querySelectorAll('.like-local-number')
+        let cardPhoto = document.querySelectorAll('.card-photo')
+       
+        let elements = [].slice.call(cardPhoto)
+   
+        elements.sort(function (a, b) {return a.childNodes[1].childNodes[1].childNodes[0].textContent - b.childNodes[1].childNodes[1].childNodes[0].textContent});
+        
+        for(let i = 0; i < elements.length; i++) {
+            nameAndLikes.name = elements[i].childNodes[0].childNodes[0].getAttribute('name')
+            nameAndLikes.likes = elements[i].childNodes[1].childNodes[1].childNodes[0].textContent
+            nameAndLikesTotal.push(nameAndLikes)
+            nameAndLikes = []
+        }
+        for(let i = 0; i < cardPhoto.length; i++) {
+            
+            cardPhoto[i].remove()
+            likeLocalNumber[i].remove()
+        }
+
+        console.log(elements);
+
+        
+
+        elements.forEach((media) => {
+            let mediasSection = document.querySelector('.cards-photo')
+            let cardPhoto = document.createElement('div')
+            let cardPhotoContainer = document.createElement('div')
+            let cardPhotoBottom = document.createElement('div')
+            let cardPhotoTitle = document.createElement('div')
+            let cardPhotoLikeSection = document.createElement('div')
+            let cardPhotoImg
+            let newLike
+            
+            cardPhoto.classList.add('card-photo')
+            cardPhotoContainer.classList.add('card-photo-container')
+            cardPhotoBottom.classList.add('card-photo-bottom')
+            cardPhotoTitle.classList.add('card-photo-title')
+            cardPhotoLikeSection.classList.add('like-photo')
+            cardPhotoTitle.textContent = media.childNodes[0].childNodes[0].getAttribute('name')
+            
+            if (media.childNodes[0].childNodes[0].classList.contains('videoElement'))
+            {
+                cardPhotoImg = document.createElement('video')
+                cardPhotoImg.classList.add('videoElement')
+            } else {
+                cardPhotoImg = document.createElement('img')
+                
+            }
+       
+            
+            for(let i = 0; i < elements.length; i++) {
+                if(nameAndLikesTotal[i].name ===  media.childNodes[0].childNodes[0].getAttribute('name')){
+                    newLike = nameAndLikesTotal[i].likes
+                }
+            }
+
+            
+    
+            cardPhotoImg.setAttribute('src', media.childNodes[0].childNodes[0].src)
+            cardPhotoImg.classList.add('media')
+            cardPhotoImg.setAttribute('name', media.childNodes[0].childNodes[0].getAttribute('name'))
+            cardPhotoImg.setAttribute('alt', media.childNodes[0].childNodes[0].getAttribute('name'))
+            cardPhotoImg.setAttribute('id', media.childNodes[0].childNodes[0].getAttribute('name'))
+            cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
+            cardPhoto.appendChild(cardPhotoContainer)
+            cardPhoto.appendChild(cardPhotoBottom)
+            cardPhotoBottom.appendChild(cardPhotoTitle)
+            cardPhotoBottom.appendChild(cardPhotoLikeSection)
+            cardPhotoContainer.appendChild(cardPhotoImg)
+            mediasSection.appendChild(cardPhoto)
+     
+        })
+        heartEvent()
+}
+
+
+function dateFilterClik() {
+/*     array.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.date) - new Date(a.date);
+      }); */
+
+    let actualLikeNumbers = {}
+    let nameAndLikes = { name : '', likes: ''}
+    let nameAndLikesTotal = []
+
+
+    console.log(nameAndLikesTotal);
+    let likeLocalNumber = document.querySelectorAll('.like-local-number')
+    let cardPhoto = document.querySelectorAll('.card-photo')
+    console.log(likeLocalNumber);
+    let elements = [].slice.call(cardPhoto)
+
+    console.log(elements[0].childNodes[0].childNodes[0].dataset.date);
+
+    
+    elements.sort(function (a, b) {return new Date(a.childNodes[0].childNodes[0].dataset.date) - new Date(b.childNodes[0].childNodes[0].dataset.date)});
+    console.log(elements)
+    let medias = document.querySelectorAll('.card-photo')
+    let actualLikeLocalNumber = document.querySelectorAll('.like-local-number')
+    for(let i = 0; i < medias.length; i++) {
+        
+        medias[i].remove()
+        
+    }
+    
+    for(let i = 0; i < elements.length; i++) {
+        nameAndLikes.name = elements[i].childNodes[0].childNodes[0].getAttribute('name')
+        nameAndLikes.likes = elements[i].childNodes[1].childNodes[1].childNodes[0].textContent
+        nameAndLikesTotal.push(nameAndLikes)
+        nameAndLikes = []
+    }
+   
+   
+    elements.forEach((media) => {
+        let mediasSection = document.querySelector('.cards-photo')
+        let cardPhoto = document.createElement('div')
+        let cardPhotoContainer = document.createElement('div')
+        let cardPhotoBottom = document.createElement('div')
+        let cardPhotoTitle = document.createElement('div')
+        let cardPhotoLikeSection = document.createElement('div')
+        //let likeLocalNumber = document.createElement('span')
+        let cardPhotoImg
+        let newLike
+
+        cardPhoto.classList.add('card-photo')
+        cardPhotoContainer.classList.add('card-photo-container')
+        cardPhotoBottom.classList.add('card-photo-bottom')
+        cardPhotoTitle.classList.add('card-photo-title')
+        cardPhotoLikeSection.classList.add('like-photo')
+        //likeLocalNumber.classList.add('like-local-number')
+        cardPhotoTitle.textContent = media.childNodes[0].childNodes[0].getAttribute('name')
+        
+        if (media.childNodes[0].childNodes[0].classList.contains('videoElement'))
+        {
+            cardPhotoImg = document.createElement('video')
+            cardPhotoImg.classList.add('videoElement')
+        } else {
+            cardPhotoImg = document.createElement('img')
+            
+        }
+   
+        
+        for(let i = 0; i < elements.length; i++) {
+            if(nameAndLikesTotal[i].name ===  media.childNodes[0].childNodes[0].getAttribute('name')){
+                newLike = nameAndLikesTotal[i].likes
+            }
+        }
+        cardPhotoImg.setAttribute('src', media.childNodes[0].childNodes[0].src)
+        cardPhotoImg.classList.add('media')
+        cardPhotoImg.setAttribute('name', media.childNodes[0].childNodes[0].getAttribute('name'))
+        cardPhotoImg.setAttribute('alt', media.childNodes[0].childNodes[0].getAttribute('name'))
+        cardPhotoImg.setAttribute('id', media.childNodes[0].childNodes[0].getAttribute('name'))
+        cardPhotoImg.setAttribute('data-date', media.childNodes[0].childNodes[0].dataset.date)
+        cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
+        cardPhoto.appendChild(cardPhotoContainer)
+        cardPhoto.appendChild(cardPhotoBottom)
+        cardPhotoBottom.appendChild(cardPhotoTitle)
+        cardPhotoBottom.appendChild(cardPhotoLikeSection)
+        cardPhotoContainer.appendChild(cardPhotoImg)
+        mediasSection.appendChild(cardPhoto)
+
+        
+
+    }) 
+    heartEvent()
+    
+}

@@ -64,49 +64,24 @@ header a {
     font-size: 18px;
     margin-left: 100px;
     margin-bottom: 60px;
-    position: relative;
 }
 
-.filter-section-title {
+.filter-label {
     margin-top: 5px;
-    margin-right: 0;
+    margin-right: 20px;
 }
 
-.filter-dropdown {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    border-radius: 5px;
-    background-color: #901C1C;
-    width: 180px;
-    top: 0;
-    left: 80px;
-    height: auto;
-    
-}
+#filters-dropdown {
 
- 
-.filter-btn {
-    line-height: 0;  
     font-size: 18px;
-    color: white;
-    padding: 0px 15px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+}
+
+.filter-btn {
+
 }
 
 
-.filter-btn:nth-child(1)
-{
-
-    
-}
-
-
-.filter-btn:nth-child(2)::before
+/* .filter-btn:nth-child(2)::before
 {
     content: "";
     border-bottom: 1px solid white;
@@ -138,7 +113,7 @@ header a {
 
 .filter-btn-chevron-disable {
     transform: rotate(180deg);
-}
+} */
 
 /* Section photos-------------------------------------------------------------------- */
 

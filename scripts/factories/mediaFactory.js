@@ -37,7 +37,7 @@ function mediaFactory(data) {
         const cardPhotoLikeSection = document.createElement('div')
 
         
-
+        
         cardPhoto.classList.add('card-photo')
         cardPhotoContainer.classList.add('card-photo-container')
         cardPhotoBottom.classList.add('card-photo-bottom')
@@ -52,16 +52,16 @@ function mediaFactory(data) {
         cardPhoto.appendChild(cardPhotoBottom)
         cardPhotoBottom.appendChild(cardPhotoTitle)
         cardPhotoBottom.appendChild(cardPhotoLikeSection)
-
+        let cardPhotoImg
         if (video == undefined) {
-            const cardPhotoImg = document.createElement('img')
+            cardPhotoImg = document.createElement('img')
             cardPhotoImg.setAttribute('src', imageAsset)
             cardPhotoImg.classList.add('media')
             cardPhotoImg.setAttribute('name', title)
             cardPhotoImg.setAttribute('alt', title)
             cardPhotoContainer.appendChild(cardPhotoImg)
         } else if (image == undefined) {
-            const cardPhotoImg = document.createElement('video')
+            cardPhotoImg = document.createElement('video')
             cardPhotoImg.setAttribute('src', videoAsset)
             cardPhotoImg.classList.add('videoElement')
             cardPhotoImg.classList.add('media')
@@ -71,7 +71,8 @@ function mediaFactory(data) {
 
         } 
 
-        
+        cardPhotoImg.setAttribute('data-date', date)
+        cardPhotoImg.setAttribute('id', title)
 
         return(cardPhoto)
 

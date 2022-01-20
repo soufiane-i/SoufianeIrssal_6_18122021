@@ -18,19 +18,12 @@
       </article>
       <div class="photo-section">
         <div class="filter-section">
-          <span class="filter-section-title">Trier par</span>
-          <div class="filter-dropdown">
-            <div  class="filter-btn filter-popularity">
-              <span>Popularité</span>
-              <i class="fas fa-chevron-up filter-chevron filter-btn-chevron-disable"></i>
-            </div>
-            <div  class="filter-btn filter-date filter-btn-disable">
-              <span>Date</span>
-            </div>
-            <div class="filter-btn filter-title filter-btn-disable">
-              <span>Titre</span>
-            </div>
-          </div>
+          <label class="filter-label" for="filter-select">Trier par</label>
+          <select name="filter-dropdown" id="filters-dropdown">
+            <option class="filter-btn filter-popularity" value="Popularite">Popularité</option>
+            <option class="filter-btn filter-date" value="Date">Date</option>
+            <option class="filter-btn filter-title" value="Titre">Titre</option>
+          </select>
         </div>
         <div class="cards-photo">
 
