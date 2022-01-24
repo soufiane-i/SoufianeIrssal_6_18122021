@@ -1,9 +1,14 @@
+*:focus {
+    
+}
 body{
 }
 
 header a {
     margin-left: 0;
 }
+
+
 /* Photograph-header  ----------------------------------------------*/
 .photographer-content {
     background-color: #FAFAFA;
@@ -23,6 +28,7 @@ header a {
     
 }
 
+
 .photographer-content .img-div img {
     margin: auto 0;
     text-align: right;
@@ -31,6 +37,8 @@ header a {
     border-radius: 50%;
     object-fit: cover;
 }
+
+ 
 /* Photograph-profile ------------*/
 
 .photographer-profile {
@@ -55,6 +63,12 @@ header a {
     font-size:  18px;
     color: #525252;
 }
+
+.profile-header {
+    text-align: center;
+}
+
+
 
 
 /* Filter ----------------------------------------------------------------------------*/

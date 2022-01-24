@@ -54,21 +54,24 @@ function photographerFactory(data) {
 		photographerContent.appendChild(photographerBtn)
 		imgDiv.appendChild(photographerPhoto)
 		photographerContent.appendChild(imgDiv)
-		contactName.textContent = data.name
+		contactName.textContent = name
 		return(photographerContent)
 
 	}
 
 	function getUserCardDOM() {
 		const article = document.createElement( 'article' )
-		const aLink = document.createElement('a')
+		const profileHeader = document.createElement('a')
 		const img = document.createElement( 'img' )
 		const h2 = document.createElement( 'h2' )
 		const locationDiv = document.createElement( 'div' )
 		const tagLineDiv = document.createElement('div')
 		const priceDiv = document.createElement('div')
-		aLink.setAttribute('href', `photographer.html?id=${id}`)
+		profileHeader.setAttribute('href', `photographer.html?id=${id}`)
+		profileHeader.setAttribute('aria-label', `profile de ${name}`)
+		profileHeader.classList.add('profile-header')
 		img.setAttribute('src', photographerPortrait)
+		img.setAttribute('alt', name)
 		h2.textContent = name
 		locationDiv.classList = 'location'
 		locationDiv.textContent = city + ', ' + country
@@ -76,12 +79,12 @@ function photographerFactory(data) {
 		tagLineDiv.textContent = tagline
 		priceDiv.classList ='price'
 		priceDiv.textContent = price + '€/jour'
-		article.appendChild(aLink)
-		aLink.appendChild(img)
-		aLink.appendChild(h2)
-		aLink.appendChild(locationDiv)
-		aLink.appendChild(tagLineDiv)
-		aLink.appendChild(priceDiv)
+		article.appendChild(profileHeader)
+		profileHeader.appendChild(img)
+		profileHeader.appendChild(h2)
+		article.appendChild(locationDiv)
+		article.appendChild(tagLineDiv)
+		article.appendChild(priceDiv)
 		return (article)
 	}
 } 
