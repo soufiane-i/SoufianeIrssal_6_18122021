@@ -72,9 +72,27 @@ header a {
 }
 
 #filters-dropdown {
-
     font-size: 18px;
+    border-radius: 5px;
+    border-style: none;
+    padding: 15px;
+    padding-right: 40px;
+    color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("../assets/icons/chevron--down--white.svg") 96% / 15% no-repeat #901C1C;
 }
+
+.filter-btn {
+    background-color: #901C1C;
+}
+
+
+option:hover {
+    background-color: #901C1C;
+}
+
+
 
 /* Section photos-------------------------------------------------------------------- */
 
