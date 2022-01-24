@@ -76,40 +76,6 @@ header a {
     font-size: 18px;
 }
 
-/* .filter-btn:nth-child(2)::before
-{
-    content: "";
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
-    position: absolute;
-    width: 86%;
-    height: 60px;
-    top: 60px;
-    left: 12px;
-}
-
-
-.filter-btn:nth-child(2) {
-     top: 0px;
-}
-
-.filter-btn:nth-child(3) {
-    top: 0px;
-}
-
-.filter-chevron {
-    transform: rotate(0deg);
-}
- 
-
-.filter-btn-disable {
-   display: none;
-}  
-
-.filter-btn-chevron-disable {
-    transform: rotate(180deg);
-} */
-
 /* Section photos-------------------------------------------------------------------- */
 
 .cards-photo {
@@ -387,3 +353,7 @@ form .contact_button {
     
 }
 
+.form-champ-error {
+    box-sizing: border-box;
+    border: 3px solid rgb(236, 31, 31);
+}
