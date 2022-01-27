@@ -1,6 +1,7 @@
-*:focus {
-    
+*:focus-visible {
+    border: 1px solid blue;
 }
+
 body{
 }
 
@@ -71,6 +72,8 @@ header a {
 
 
 
+
+
 /* Filter ----------------------------------------------------------------------------*/
 
 .filter-section {
@@ -126,6 +129,8 @@ option:hover {
     width: 420px;
     height: 360px;
     cursor: pointer;
+    background-color: white;
+    border: none;
 }
 .card-photo-container img, .card-photo-container video {
     width: 420px;
@@ -228,15 +233,20 @@ option:hover {
     color: #901C1C;
 }
 
+.lightbox-modal button {
+    border-style: none;
+    background-color: white;
+}
+
 .lightbox-modal i {
     margin: 0 30px;
     color: #901C1C;
 }
 
-.lightbox-modal .fa-times {
+.lightbox-modal .lightbox-close {
     position: absolute;
     top: 40px;
-    right: 260px;
+    right: 250px;
 }
 
 .lightbox-next {
@@ -389,3 +399,4 @@ form .contact_button {
     box-sizing: border-box;
     border: 3px solid rgb(236, 31, 31);
 }
+

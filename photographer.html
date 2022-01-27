@@ -10,10 +10,10 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header>
-      <a href="./index.html"><img src="assets/images/logo.png" class="logo"/></a>
+    <header role="banner">
+      <a href="./index.html" aria-label="FishEye Home page" role="lien"><img class="logo" src="assets/images/logo.png" alt="FishEye Home page" role="img" /></a>
     </header>
-    <main id="main">
+    <main id="main" role="contenu principal">
       <article class="photographer-section">
       </article>
       <div class="photo-section">
@@ -54,7 +54,7 @@
 				</form>
 			</div>
 		</div>
-    <div class="like-and-price">
+    <div class="like-and-price" role="menuitem tablist">
       <div class="like">
           <span class="like-number">0</span>
           <i class="fas fa-heart fa-lg heart-total"></i>
@@ -64,12 +64,18 @@
             € / jour
         </div>
       </div>
-    <div class="lightbox-modal lightbox-modal-disable">
-      <i class="fas fa-chevron-up fa-3x lightbox-prev"></i>
+    <div class="lightbox-modal lightbox-modal-disable" role="tablist" aria-label="lightbox">
+      <button class="lightbox-prev" tabindex="1">
+        <i class="fas fa-chevron-up fa-3x lightbox-prev-i"></i>
+      </button>
       <div class="lightbox-container">
       </div>
-      <i class="fas fa-chevron-up fa-3x lightbox-next"></i>
-      <i class="fas fa-times fa-3x"></i>
+      <button class="lightbox-next" tabindex="1">
+        <i class="fas fa-chevron-up fa-3x lightbox-next-i"></i>
+      </button>
+      <button class="lightbox-close" tabindex="1">
+        <i class="fas fa-times fa-3x"></i>
+      </button>
     </div>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/factories/photographerFactory.js"></script>

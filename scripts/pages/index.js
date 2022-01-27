@@ -1,3 +1,4 @@
+//Fonction permettant de récuperer les informations sur les photogrpahes dans le JSON 
 async function getPhotographers() {
 	// Penser à remplacer par les données récupérées dans le json
 	let res = await fetch('/data/photographers.json')
@@ -14,24 +15,26 @@ async function getPhotographers() {
 	}
 }
 
+// Afficher les cartes de profil
 async function displayData(photographers) {
+	//Emplacement dans lequel afficher les cartes 
 	const photographersSection = document.querySelector('.photographer_section')
 
+	//Boucle qui réalise une carte pour chaque photographe selon le factory pattern dédié
 	photographers.forEach((photographer) => {
-		const photographerModel = photographerFactory(photographer)
-		const userCardDOM = photographerModel.getUserCardDOM()
-		photographersSection.appendChild(userCardDOM)
+		//appel du photographerFactory avec le bon modèle (getIndexPhotographerCard)
+		const indexPhotographerModel = photographerFactory(photographer)
+		const indexPhotographerCard = indexPhotographerModel.getIndexPhotographerCard()
+		//Introduire chaque carte dans la section dédiée
+		photographersSection.appendChild(indexPhotographerCard)
 	})
 }
 
+// Récupère les datas des photographes pour les envoyer dans le displayData de manière asynchrone
 async function init() {
-	// Récupère les datas des photographes
 	const { photographers } = await getPhotographers()
 	displayData(photographers)
 }
 
 init()
 
-console.log(getPhotographers())
-
-console.log(window.location.search)

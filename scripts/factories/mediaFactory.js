@@ -1,82 +1,59 @@
 function mediaFactory(data) {
+	//Attribution des data venant du json à des variables
 	const { id, photographerId, title, image, video, likes, date, price } = data
 
+	//Recuperation des photos et videos correspondantes au profil via son nom dans sa carte de presentation
 	const photographerName = document.querySelector('.photographer-name').innerText
-
-    
-
 	const photographerFirstName = photographerName.substring(0, photographerName.indexOf(' ')).replace('-', ' ')
-
-    
-
-
 	const imageAsset = `assets/media/${photographerFirstName}/${image}`
 	const videoAsset = `assets/media/${photographerFirstName}/${video}`
 
-  
-	//Get id in Url----------------------------------------------------------------------
+	function getMediaCardDOM() {
+		//Creer le corps global de la mediaCard
+		const cardMedia = document.createElement('div')
+		const cardMediaContainer = document.createElement('div')
+		const cardMediaBottom = document.createElement('div')
+		const cardMediaTitle = document.createElement('div')
+		const cardMediaLikeSection = document.createElement('div')
 
-	//Get parameters after the ? include inthe url
-	const queryString = window.location.search 
-	//Parse the query string parameters
-	const urlParams = new URLSearchParams(queryString)
-	//get the id parameter 
-	const idSearch = urlParams.get('id')
-
-  
-
-	//-----------------------------------------------------------------------------------
-
-    
-
-	function getImageCardDOM() {
-		const cardPhoto = document.createElement('div')
-		const cardPhotoContainer = document.createElement('div')
-		const cardPhotoBottom = document.createElement('div')
-		const cardPhotoTitle = document.createElement('div')
-		const cardPhotoLikeSection = document.createElement('div')
-
+		cardMedia.classList.add('card-photo')
+		cardMediaContainer.classList.add('card-photo-container')
+		cardMediaBottom.classList.add('card-photo-bottom')
+		cardMediaTitle.classList.add('card-photo-title')
+		cardMediaLikeSection.classList.add('like-photo')
         
-        
-		cardPhoto.classList.add('card-photo')
-		cardPhotoContainer.classList.add('card-photo-container')
-		cardPhotoBottom.classList.add('card-photo-bottom')
-		cardPhotoTitle.classList.add('card-photo-title')
-		cardPhotoLikeSection.classList.add('like-photo')
-        
+		cardMediaTitle.textContent = title
+		cardMediaLikeSection.innerHTML = `<span class="like-local-number">${likes}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
 
-		cardPhotoTitle.textContent = title
-		cardPhotoLikeSection.innerHTML = `<span class="like-local-number">${likes}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
-
-		cardPhoto.appendChild(cardPhotoContainer)
-		cardPhoto.appendChild(cardPhotoBottom)
-		cardPhotoBottom.appendChild(cardPhotoTitle)
-		cardPhotoBottom.appendChild(cardPhotoLikeSection)
-		let cardPhotoImg
+		cardMedia.appendChild(cardMediaContainer)
+		cardMedia.appendChild(cardMediaBottom)
+		cardMediaBottom.appendChild(cardMediaTitle)
+		cardMediaBottom.appendChild(cardMediaLikeSection)
+		//Diffrence d'attributs et de classes enfonction de la nature du media(photo ou video)
+		let cardMediaElement
+		//Diffrence entre photo et video faite à partir de la propriété video du fichier json present seulement dans les objects contenant une video
 		if (video == undefined) {
-			cardPhotoImg = document.createElement('img')
-			cardPhotoImg.setAttribute('src', imageAsset)
-			cardPhotoImg.classList.add('media')
-			cardPhotoImg.setAttribute('name', title)
-			cardPhotoImg.setAttribute('alt', title)
-			cardPhotoContainer.appendChild(cardPhotoImg)
-		} else if (image == undefined) {
-			cardPhotoImg = document.createElement('video')
-			cardPhotoImg.setAttribute('src', videoAsset)
-			cardPhotoImg.classList.add('videoElement')
-			cardPhotoImg.classList.add('media')
-			cardPhotoImg.setAttribute('name', title)
-			cardPhotoImg.setAttribute('alt', title)
-			cardPhotoContainer.appendChild(cardPhotoImg)
-
+			cardMediaElement = document.createElement('img')
+			cardMediaElement.setAttribute('src', imageAsset)	
+			cardMediaContainer.appendChild(cardMediaElement)
+		} else {
+			cardMediaElement = document.createElement('video')
+			cardMediaElement.setAttribute('src', videoAsset)
+			cardMediaElement.classList.add('videoElement')
+			cardMediaContainer.appendChild(cardMediaElement)
 		} 
 
-		cardPhotoImg.setAttribute('data-date', date)
-		cardPhotoImg.setAttribute('id', title)
+		//Attributs et classe valable quelque soit la nature du media
+		cardMediaElement.setAttribute('tabindex', '0')
+		cardMediaElement.setAttribute('name', title)
+		cardMediaElement.setAttribute('alt', title)
+		cardMediaElement.classList.add('media')
+		cardMediaElement.setAttribute('data-date', date)
+		cardMediaElement.setAttribute('id', id)
 
-		return(cardPhoto)
+		return(cardMedia)
 
-	} return { id, photographerId, title, image, video, likes, date, price, getImageCardDOM }
+	} return { id, photographerId, title, image, video, likes, date, price, getMediaCardDOM }
 } 
 
 

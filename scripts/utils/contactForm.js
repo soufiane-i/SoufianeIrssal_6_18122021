@@ -11,7 +11,7 @@ const submitBtn = document.querySelector('.contact_button')
 let firstNameRegex = /^[a-z-]{2,}$/i
 let lastNameRegex = /^[a-z ,.'-]{2,}$/i
 let messageRegex = /^[a-z ,.'-]{0,}$/i
-let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+let emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 
 // variables
@@ -105,11 +105,9 @@ function messageCheck() {
 }
 
 function displayModal() {
-    
 	modal.style.display = 'flex'
 }
     
-function closeModal() {
-        
+function closeModal() {   
 	modal.style.display = 'none'
 }
