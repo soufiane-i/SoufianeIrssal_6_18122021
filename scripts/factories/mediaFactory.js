@@ -50,6 +50,7 @@ function mediaFactory(data) {
 		cardMediaElement.classList.add('media')
 		cardMediaElement.setAttribute('data-date', date)
 		cardMediaElement.setAttribute('id', id)
+		cardMediaElement.setAttribute('aria-hidden', 'false')
 
 		return(cardMedia)
 

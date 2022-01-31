@@ -110,6 +110,7 @@ const lightboxNext = document.querySelector('.lightbox-next-i')
 
 
 
+
 //Ecoute des cliques sur les elements de la section media
 function mediasElementsEvent() { 
 	for (let i = 0; i < mediasElements.length; i++) mediasElements[i].addEventListener('click', displayLightBox)  
@@ -125,17 +126,22 @@ lightboxCrossBtn.addEventListener('click', lightboxClose)
 lightboxPrev.addEventListener('click', previousMedia)
 lightboxNext.addEventListener('click', nextMedia)
 
+document.body.focus()
+
 // Fonction appélée lors du clique sur un element dans la section media
 function displayLightBox(e) {
 	let key=e.keyCode || e.which
 	// Detection du click et de la touche entrer
 	if (key==13 || 'click'){
-	   	//recuperation de l'élement cliqué avec son src et son name
+	   	//Manipulation du Aria-hidden pour la anavigation au clavier
 		for(let i=0; i < mediasElements.length; i++) {
 			mediasElements[i].setAttribute('aria-selected', 'false')
+			mediasElements[i].setAttribute('aria-hidden', 'true')
 		}
 		
-	
+
+		
+		//recuperation de l'élement cliqué avec son src et son name
 		let targetMedia = e.target
 		let targetMediasSrc = targetMedia.src
 		let targetMediasTitle = targetMedia.getAttribute('name')
@@ -194,6 +200,14 @@ function displayLightBox(e) {
 		lightbox.classList.remove('lightbox-modal-disable')
 		//Désactiver scroll 
 		document.body.style.overflow = 'hidden'  
+		lightboxCloseBtn.setAttribute('aria-hidden', 'false')
+		lightboxPrev.setAttribute('aria-hidden', 'false')	
+		lightboxNext.setAttribute('aria-hidden', 'false')
+		let formBtn = document.querySelector('.contact_button')
+		let bannerImg = document.querySelector('.banner-img')
+		formBtn.setAttribute('aria-hidden', 'true')
+		bannerImg.setAttribute('aria-hidden', 'true')	
+		lightboxCrossBtn.focus()
 	}
   
 }
@@ -231,9 +245,10 @@ function checkKey(e) {
 	//Flèche droite
 	} else if (e.keyCode == '39') {
     	lightboxSliding('next', lightboxNext, 'press')
-	//Touche effacée
-	} else if (e.keyCode == '8') {
+	//Echap
+	} else if (e.keyCode == '27') {
     	lightboxClose()
+		closeModal()
 	}
 }
 
@@ -311,7 +326,7 @@ function lightboxSliding(direction, arrow, controller) {
 const popularityFilter = document.querySelector('.filter-popularity')
 const dateFilter = document.querySelector('.filter-date')
 const titleFilter = document.querySelector('.filter-title')
-console.log(dateFilter)
+
 //Ecoute du clique sur les filtres
 function titleFilterEvent() { titleFilter.addEventListener('click', filter) }
 function popularityFilterEvent() { popularityFilter.addEventListener('click', filter) }
@@ -405,3 +420,7 @@ function filter(e) {
 	mediasElementsEvent()
 	mediasElementsTabEvent()
 }
+
+
+
+

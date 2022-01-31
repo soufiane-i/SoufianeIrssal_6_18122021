@@ -35,7 +35,7 @@ function photographerFactory(data) {
 		tagLine.classList.add('photographer-tagline')
 		imgDiv.classList.add('img-div')
 		
-		photographerBtn.innerHTML = '<button class="contact_button" onclick="displayModal()">Contactez-moi</button>'
+		photographerBtn.innerHTML = '<button class="contact_button" id="photograph_button" onclick="displayModal()" aria-haspopup="dialog">Contactez-moi</button>'
 		h2.textContent = data.name
 		location.textContent = data.city + ', ' + data.country
 		tagLine.textContent = data.tagline
@@ -64,10 +64,14 @@ function photographerFactory(data) {
 		const locationDiv = document.createElement( 'div' )
 		const tagLineDiv = document.createElement('div')
 		const priceDiv = document.createElement('div')
+		const infosDiv = document.createElement('div')
 		profileHeader.setAttribute('href', `photographer.html?id=${id}`)
 		profileHeader.setAttribute('aria-label', `profile de ${name}`)
+		profileHeader.setAttribute('aria-label', `informations sur ${name}`)
 		img.setAttribute('src', photographerPortrait)
 		img.setAttribute('alt', name)
+		infosDiv.setAttribute('tabindex', '0')
+		infosDiv.classList.add('infosDiv')
 		profileHeader.classList.add('profile-header')
 		locationDiv.classList.add('location')
 		priceDiv.classList.add('price')
@@ -78,12 +82,14 @@ function photographerFactory(data) {
 		tagLineDiv.textContent = tagline
 		priceDiv.textContent = price + '€/jour'
 
+
+		infosDiv.appendChild(locationDiv)
+		infosDiv.appendChild(tagLineDiv)
+		infosDiv.appendChild(priceDiv)
 		article.appendChild(profileHeader)
+		article.appendChild(infosDiv)
 		profileHeader.appendChild(img)
 		profileHeader.appendChild(h2)
-		article.appendChild(locationDiv)
-		article.appendChild(tagLineDiv)
-		article.appendChild(priceDiv)
 
 		return (article)
 	}

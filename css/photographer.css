@@ -2,9 +2,6 @@
     border: 1px solid blue;
 }
 
-body{
-}
-
 header a {
     margin-left: 0;
 }
@@ -48,6 +45,11 @@ header a {
     transform: translateY(20px);
     
 }
+
+.infosDiv {
+text-align: center;
+}
+
 .photographer-name {
     font-size: 64px;
     margin-bottom: 0px;   
@@ -275,6 +277,7 @@ option:hover {
 }
 
 .modal {
+    position: relative;
     border-radius: 5px;
     background-color: #DB8876;
     width: 30%;
@@ -285,7 +288,7 @@ option:hover {
     padding: 35px;
     padding-top: 5px;
     margin: auto;
-    box-shadow: -15px 10px 20px rgba(0, 0, 0, 0.1)
+    box-shadow: -15px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .modal .modal-header {
@@ -398,5 +401,11 @@ form .contact_button {
 .form-champ-error {
     box-sizing: border-box;
     border: 3px solid rgb(236, 31, 31);
+}
+
+.form_close{
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
 
