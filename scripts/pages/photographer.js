@@ -1,4 +1,13 @@
 /* eslint-disable no-undef */
+
+const header = document.querySelector('header')
+const logo = document.querySelector('.logo')
+const modalContainer = document.getElementById('contact_modal')
+const modal = document.querySelector('.modal')
+const filterDropDown = document.getElementById('filters-dropdown')
+const filterLabel = document.querySelector('.filter-label')
+const likeNPrice = document.querySelector('.like-and-price')
+
 // Récupération des infos d'un photographes selon l'id dans l'url
 async function getJsonElements(e){
 	//Récuperation de l'Id dans l'URL
@@ -51,7 +60,7 @@ async function displayDailyPrice(photographer) {
 //DOM Element
 let heartTotal = document.querySelector('.like-number')
 
-function displayMedias(mediasProp, heartEvent, mediasElementsEvent, titleFilterEvent, popularityFilterEvent, dateFilterEvent, dateFilterTest) {
+function displayMedias(mediasProp, heartEvent, mediasElementsEvent) {
 	const mediasSection = document.querySelector('.cards-photo')
 	// Associer le bon modèle dans le photograppher Factory pour chaque media(photo ou video) avec le bon nombre de coeur mis à jour
 	mediasProp.forEach((media) => {
@@ -64,10 +73,6 @@ function displayMedias(mediasProp, heartEvent, mediasElementsEvent, titleFilterE
 	heartEvent()
 	mediasElementsEvent()
 	mediasElementsTabEvent()
-	titleFilterEvent()
-	popularityFilterEvent()
-	dateFilterEvent()
-	dateFilterTest()
 }
 
 //Activation des fonctions d'affichage de la carte de profil, du tarif journalier et des photos et video après avoir recceuilli les données Json
@@ -77,7 +82,8 @@ async function init() {
 	const { mediasProp } = await getJsonElements('medias')
 	displayProfilCard(photographer)
 	displayDailyPrice(photographer)
-	displayMedias(mediasProp, heartEvent, mediasElementsEvent, mediasElementsTabEvent, titleFilterEvent, popularityFilterEvent, dateFilterEvent, dateFilterTest)
+	displayMedias(mediasProp, heartEvent, mediasElementsEvent, mediasElementsTabEvent)
+	filter(0)
 }
 init()
 
@@ -125,101 +131,111 @@ function mediasElementsTabEvent() {
 lightboxCrossBtn.addEventListener('click', lightboxClose)
 lightboxPrev.addEventListener('click', previousMedia)
 lightboxNext.addEventListener('click', nextMedia)
+lightboxCrossBtn.addEventListener('keypress', lightboxClose)
+lightboxPrev.addEventListener('keypress', previousMedia)
+lightboxNext.addEventListener('keypress', nextMedia)
 
-document.body.focus()
 
 // Fonction appélée lors du clique sur un element dans la section media
 function displayLightBox(e) {
-	let key=e.keyCode || e.which
-	// Detection du click et de la touche entrer
-	if (key==13 || 'click'){
-	   	//Manipulation du Aria-hidden pour la anavigation au clavier
-		for(let i=0; i < mediasElements.length; i++) {
-			mediasElements[i].setAttribute('aria-selected', 'false')
-			mediasElements[i].setAttribute('aria-hidden', 'true')
-		}
+
 		
 
 		
-		//recuperation de l'élement cliqué avec son src et son name
-		let targetMedia = e.target
-		let targetMediasSrc = targetMedia.src
-		let targetMediasTitle = targetMedia.getAttribute('name')
+	//recuperation de l'élement cliqué avec son src et son name
+	let targetMedia = e.target
+	let targetMediasSrc = targetMedia.src
+	let targetMediasTitle = targetMedia.getAttribute('name')
 		
-		//Récuperation d'élément du DOM
-		let lightboxImg = document.querySelector('.lightbox-img')
-		let lightboxVideo = document.querySelector('.lightbox-video')
-		let lightboxTitle = document.querySelector('.lightbox-title')
+	//Récuperation d'élément du DOM
+	let lightboxImg = document.querySelector('.lightbox-img')
+	let lightboxVideo = document.querySelector('.lightbox-video')
+	let lightboxTitle = document.querySelector('.lightbox-title')
 		
-		/*Si le lightboxContainer ne contient ni photo ni video, create l'élement souhaité avec le bon receptacle(img ou video)
+	/*Si le lightboxContainer ne contient ni photo ni video, create l'élement souhaité avec le bon receptacle(img ou video)
 		tout en creant l'autre mais caché afin de ne pas avoir à en creer à chaque fois mais seulement à changer le src, le name et le titre */ 
-		if(lightboxContainer.childElementCount == 0) {
-			lightboxImg = document.createElement('img')
-			lightboxVideo = document.createElement('video')
-			lightboxTitle = document.createElement('h3')
+	if(lightboxContainer.childElementCount == 0) {
+		lightboxImg = document.createElement('img')
+		lightboxVideo = document.createElement('video')
+		lightboxTitle = document.createElement('h3')
 
-			if(targetMedia.classList.contains('videoElement')) {
-				lightboxImg.classList.add('lightbox-img', 'lightbox-element-disable')
-				lightboxVideo.setAttribute('name', targetMediasTitle)
-				lightboxVideo.setAttribute('src', targetMediasSrc)
-				lightboxVideo.setAttribute('controls', 'controls')
-			} else {
-				lightboxImg.setAttribute('name', targetMediasTitle)
-				lightboxImg.classList.add('lightbox-img')
-				lightboxImg.setAttribute('src', targetMediasSrc)
-				lightboxVideo.classList.add('lightbox-element-disable')
-			}
-
-			lightboxVideo.classList.add('lightbox-video')
-			lightboxTitle.classList.add('lightbox-title')
-
-			lightboxContainer.appendChild(lightboxImg)
-			lightboxContainer.appendChild(lightboxVideo)
+		if(targetMedia.classList.contains('videoElement')) {
+			lightboxImg.classList.add('lightbox-img', 'lightbox-element-disable')
+			lightboxVideo.setAttribute('name', targetMediasTitle)
+			lightboxVideo.setAttribute('src', targetMediasSrc)
+			lightboxVideo.setAttribute('controls', 'controls')
+			lightboxVideo.setAttribute('tabindex', '1')
 		} else {
 			lightboxImg.setAttribute('name', targetMediasTitle)
+			lightboxImg.classList.add('lightbox-img')
+			lightboxImg.setAttribute('src', targetMediasSrc)
+			lightboxImg.setAttribute('tabindex', '1')
+			lightboxVideo.classList.add('lightbox-element-disable')
 
-			if(targetMedia.classList.contains('videoElement')) {
-				lightboxVideo.classList.add('lightbox-video')
-				lightboxVideo.classList.remove('lightbox-element-disable')
-				lightboxVideo.setAttribute('src', targetMediasSrc)
-				lightboxVideo.setAttribute('tabindex', '0')  
-
-				lightboxContainer.appendChild(lightboxVideo)
-
-			} else {
-				lightboxImg.classList.add('lightbox-img')
-				lightboxImg.setAttribute('src', targetMediasSrc)  
-				lightboxImg.setAttribute('tabindex', '0')
-				lightboxImg.classList.remove('lightbox-element-disable')
-			}
 		}
 
-		lightboxTitle.textContent = targetMediasTitle
-		lightboxContainer.appendChild(lightboxTitle)
-		//Fait reaparraitre la lightbox
-		lightbox.classList.remove('lightbox-modal-disable')
-		//Désactiver scroll 
-		document.body.style.overflow = 'hidden'  
-		lightboxCloseBtn.setAttribute('aria-hidden', 'false')
-		lightboxPrev.setAttribute('aria-hidden', 'false')	
-		lightboxNext.setAttribute('aria-hidden', 'false')
-		let formBtn = document.querySelector('.contact_button')
-		let bannerImg = document.querySelector('.banner-img')
-		formBtn.setAttribute('aria-hidden', 'true')
-		bannerImg.setAttribute('aria-hidden', 'true')	
-		lightboxCrossBtn.focus()
+		lightboxVideo.classList.add('lightbox-video')
+		lightboxTitle.classList.add('lightbox-title')
+
+		lightboxContainer.appendChild(lightboxImg)
+		lightboxContainer.appendChild(lightboxVideo)
+	} else {
+		lightboxImg.setAttribute('name', targetMediasTitle)
+
+		if(targetMedia.classList.contains('videoElement')) {
+			lightboxVideo.classList.add('lightbox-video')
+			lightboxVideo.classList.remove('lightbox-element-disable')
+			lightboxVideo.setAttribute('src', targetMediasSrc)
+			lightboxVideo.setAttribute('tabindex', '0')  
+
+			lightboxContainer.appendChild(lightboxVideo)
+
+		} else {
+			lightboxImg.classList.add('lightbox-img')
+			lightboxImg.setAttribute('src', targetMediasSrc)  
+			lightboxImg.setAttribute('tabindex', '0')
+			lightboxImg.classList.remove('lightbox-element-disable')
+		}
 	}
+
+	lightboxTitle.textContent = targetMediasTitle
+	lightboxContainer.appendChild(lightboxTitle)
+	//Fait reaparraitre la lightbox
+	lightbox.classList.remove('lightbox-modal-disable')
+	//Désactiver scroll 
+	document.body.style.overflow = 'hidden'  
+	lightboxCrossBtn.setAttribute('aria-hidden', 'false')
+	lightboxPrev.setAttribute('aria-hidden', 'false')	
+	lightboxNext.setAttribute('aria-hidden', 'false')
+	let formBtn = document.querySelector('.contact_button')
+	formBtn.setAttribute('aria-hidden', 'true')
+	logo.setAttribute('aria-hidden', 'true')	
+	lightbox.focus()
+	
+	lightBoxTab(1)
+	profilCardTab(-1)
+	photosSectionTab(-1)
   
 }
 
 //Ferme la lightbox en desactivant ses element et en reactivant le overflow permettant le scroll
-function lightboxClose() {
+function lightboxClose(e) {
 	let lightboxImg = document.querySelector('.lightbox-img')
 	let lightboxVideo = document.querySelector('.lightbox-video')
 	lightboxVideo.classList.add('lightbox-element-disable')
 	lightboxImg.classList.add('lightbox-element-disable')
 	lightbox.classList.add('lightbox-modal-disable')
 	document.body.style.overflow = 'auto'
+	let lastLighboxElement = document.querySelector('.lightbox-img').getAttribute('name')
+	let medias = document.getElementsByClassName('media')
+	for (let i = 0; i < medias.length; i++) {
+		if (medias[i].getAttribute('name') === lastLighboxElement) {
+			medias[i].focus()
+		}
+	}
+	lightBoxTab(-1)
+	profilCardTab(1)
+	photosSectionTab(1)
 }
 
 //Fonction appelée lors du clique sur la fleche de gauche de la lightbox permettant de passer à l'élement precédent
@@ -232,6 +248,9 @@ function previousMedia(e) {
 function nextMedia(e) {
 	lightboxSliding('next', e, 'click')
 } 
+
+let prevFilterIndex
+let actualFilterIndex
 
 document.onkeydown = checkKey
 
@@ -246,10 +265,31 @@ function checkKey(e) {
 	} else if (e.keyCode == '39') {
     	lightboxSliding('next', lightboxNext, 'press')
 	//Echap
-	} else if (e.keyCode == '27') {
-    	lightboxClose()
-		closeModal()
-	}
+	} else if ((e.keyCode == '27')) {
+		//Formulaire
+		if (modalContainer.style.display == 'flex') {
+			closeModal()
+		//Slides
+		} else if (!lightbox.classList.contains('lightbox-modal-disable')) {
+			lightboxClose()
+		} 
+	} else if (e.keyCode == '38' && filterDropDown === document.activeElement) {
+		prevFilterIndex = filterDropDown.selectedIndex
+		actualFilterIndex = prevFilterIndex - 1
+		if (actualFilterIndex < 0) actualFilterIndex = 0
+		filter(actualFilterIndex)	
+	} else if (e.keyCode == '40' && filterDropDown === document.activeElement) {
+		prevFilterIndex = filterDropDown.selectedIndex
+		actualFilterIndex = prevFilterIndex + 1
+		if (actualFilterIndex == filterDropDown.length) actualFilterIndex = filterDropDown.length -1
+		filter(actualFilterIndex)
+	}else if ((e.keyCode == '13') && (lightboxPrev === document.activeElement)) {
+		lightboxSliding('previous', e, 'click')
+		console.log('prev')
+	} /* else if ((e.keyCode == '13') && (lightboxNext === document.activeElement)) {
+		console.log('next')
+
+	} */
 }
 
 
@@ -270,25 +310,26 @@ function lightboxSliding(direction, arrow, controller) {
 		// Récuperer l'élément du tableau mediasElements regroupant tout les medias à l'aide du name de l'élément dand la lightbox en fonction de sa nature d'img ou de video
 		// Savoir si c'est une img ou une video grace à la classe 'lightbox-element-disable' permettant de savoir si l'img est caché ce qui voudrait dire que l'élement actuel est une video
 		if(lightboxImg.classList.contains('lightbox-element-disable')){
+			console.log(arrow.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name'))
 			//A partir de la fleche sur laquelle on clique, on remonte au parent afin de retrouver l'enfant correspondant à l'img ou à la video sachant que les deux chemin sont différents
-			let actualVideoName = arrow.parentNode.parentNode.parentNodechildNodes[3].childNodes[2].getAttribute('name')
+			let actualVideoName = arrow.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name')
 			// Grace au name on cherche la photo correspondant dans le tableau media regroupant tout les element
 			actualElement = mediasElements.namedItem(actualVideoName)
 		} else {
-			let actualImgName = arrow.parentNode.parentNode.childNodes[3].childNodes[1].getAttribute('name')
+			let actualImgName = arrow.parentNode.parentNode.childNodes[1].childNodes[1].getAttribute('name')
 			actualElement = mediasElements.namedItem(actualImgName)
 		}
 	} else if (controller == 'click') {
 		if(lightboxImg.classList.contains('lightbox-element-disable')){
-			let actualVideoName = arrow.target.parentNode.parentNode.childNodes[3].childNodes[2].getAttribute('name')
+			let actualVideoName = arrow.target.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name')
 			
 			actualElement = mediasElements.namedItem(actualVideoName)
 		} else {
-			let actualImgName = arrow.target.parentNode.parentNode.childNodes[3].childNodes[1].getAttribute('name')
+			let actualImgName = arrow.target.parentNode.parentNode.childNodes[1].childNodes[1].getAttribute('name')
 			actualElement = mediasElements.namedItem(actualImgName)
+			console.log(arrow.target.parentNode.parentNode.childNodes[1].childNodes[1])
 		}
 	} 
-
 
 
 	//Direction == 1 correspond au next appelé dans la fonction nextMedia et 0 l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
@@ -309,11 +350,13 @@ function lightboxSliding(direction, arrow, controller) {
 		lightboxVideo.setAttribute('src', nextElementSrc)
 		lightboxVideo.setAttribute('name', nextElementName)
 		lightboxVideo.setAttribute('controls', 'controls')
+		lightboxVideo.setAttribute('tabindex', '1')
 	} else {
 		lightboxVideo.classList.add('lightbox-element-disable')
 		lightboxImg.classList.remove('lightbox-element-disable')
 		lightboxImg.setAttribute('src', nextElementSrc)
 		lightboxImg.setAttribute('name', nextElementName)
+		lightboxImg.setAttribute('tabindex', '1')
 	} 
 	// Mise à jour du texte correspondant à l'élément
 	lightboxTitle.textContent = nextElementName
@@ -327,49 +370,61 @@ const popularityFilter = document.querySelector('.filter-popularity')
 const dateFilter = document.querySelector('.filter-date')
 const titleFilter = document.querySelector('.filter-title')
 
+console.log(titleFilter)
+
 //Ecoute du clique sur les filtres
-function titleFilterEvent() { titleFilter.addEventListener('click', filter) }
-function popularityFilterEvent() { popularityFilter.addEventListener('click', filter) }
-function dateFilterEvent() { dateFilter.addEventListener('click', filter)}
-function dateFilterTest() { dateFilter.addEventListener('click', () => {
+/* function titleFilterEvent() { titleFilter.addEventListener('click', filter(0)) }
+function popularityFilterEvent() { popularityFilter.addEventListener('click', filter(1)) }
+function dateFilterEvent() { dateFilter.addEventListener('click', filter(2))} */
+
 	
-})}
-function filter(e) {
+titleFilter.addEventListener('click', titleIndex)
+popularityFilter.addEventListener('click', popularityIndex)
+dateFilter.addEventListener('click', dateIndex)
+
+function popularityIndex() { filter(0) }
+
+function dateIndex() { filter(1) }
+
+function titleIndex() { filter(2) }
+
+function filter(filterindex) {
 	let cardsPhoto = document.querySelectorAll('.card-photo')
 
 	let elements
-	
+		
 	// Triage en fonction du filtre choisi
-	if(e.target.value == 'Titre') {
+	// Index 0 : popularite - Index 1 : date - Index 2 : titre
+	if(filterindex == 0) {
 		//HTMLCollection -> Array
-		elements = [].slice.call(mediasElements)
-		//Triage par ordre alphabétique
-		elements.sort((a, b) => (a.getAttribute('name') > b.getAttribute('name')) ? 1 : -1) 
-	} else if (e.target.value == 'Popularite') {
 		elements = [].slice.call(cardsPhoto)
 		//Triage par nombre de like croissant
 		elements.sort(function (a, b) { return a.childNodes[1].childNodes[1].childNodes[0].textContent - b.childNodes[1].childNodes[1].childNodes[0].textContent})
 		//Inversion des elements afin d'avoir le triage en ordre decroissant
 		elements.reverse()
-	} else if (e.target.value == 'Date') {
+	} else if (filterindex == 1) {
 		elements = [].slice.call(mediasElements)
+		console.log(elements[0].dataset.date.split('-'))
 		//Triage par ordre croissant des dates 
-		elements.sort(function (a, b) { return new Date(a.dataset.date).getTime() - new Date(b.dataset.date).getTime()})
-		console.log(elements)
+		elements.sort(function (a, b) { return new Date(a.dataset.date.split('-')).getTime() - new Date(b.dataset.date.split('-')).getTime()})
 		//Inversion des elements afin d'avoir le triage en ordre decroissant
 		elements.reverse()
+	} else if (filterindex == 2) {
+		elements = [].slice.call(mediasElements)
+		//Triage par ordre alphabétique
+		elements.sort((a, b) => (a.getAttribute('name') > b.getAttribute('name')) ? 1 : -1) 
 	} 
-    
+		
 	//Suppression des photos présents avant le filtrage
 	for(let i = 0; i < cardsPhoto.length; i++) cardsPhoto[i].remove()
-	
+		
 	//Créations des nouvelles cartes
 	elements.forEach((media) => {
 		// target = localisation de l'élément img ou video
 		let target
-		if(e.target.value == 'Titre' || e.target.value == 'Date') {
+		if(filterindex == 2 || filterindex == 1) {
 			target = media
-		} else if (e.target.value == 'Popularite') {
+		} else if (filterindex == 0) {
 			target = media.childNodes[0].childNodes[0]
 		}
 
@@ -388,7 +443,7 @@ function filter(e) {
 		cardElementTitle.classList.add('card-photo-title')
 		cardElementLikeSection.classList.add('like-photo')
 		cardElementTitle.textContent = target.getAttribute('name')
-        
+			
 		if (target.classList.contains('videoElement'))
 		{
 			cardElementNew = document.createElement('video')
@@ -418,9 +473,77 @@ function filter(e) {
 	//Actualisation de la localisation et des events
 	heartEvent()
 	mediasElementsEvent()
-	mediasElementsTabEvent()
+	mediasElementsTabEvent() 
 }
 
 
 
 
+function displayModal() {
+	modalContainer.style.display = 'flex'
+
+	document.getElementById('main').setAttribute('tabindex', '-1')
+	document.getElementById('main').setAttribute('aria-hidden', 'true')
+	modal.setAttribute('aria-hidden', 'false')
+	modal.focus()
+
+	profilCardTab(-1)
+	photosSectionTab(-1)
+	filterDropDown.setAttribute('tabindex', '-1')
+}
+    
+function closeModal() { 
+	modalContainer.style.display = 'none' 
+
+	document.getElementById('main').setAttribute('tabindex', '0')
+	document.getElementById('main').setAttribute('aria-hidden', 'false')
+	modal.setAttribute('aria-hidden', 'true')
+	modal.focus()
+	profilCardTab(0)
+	photosSectionTab(0)
+	let medias = document.getElementsByClassName('media')
+	let mediasArray = [].slice.call(medias)
+	mediasArray.forEach(element => {
+		element.setAttribute('tabindex', '0')
+	})
+	
+	filterDropDown.setAttribute('tabindex', '0')
+}
+
+
+function profilCardTab(tabindexNumber) {
+	let formBtn = document.getElementById('photograph_button')
+	let cardName = document.querySelector('.photographer-name')
+	let cardInfosDiv = document.querySelector('.infosDiv')
+	let cardPhoto = document.querySelector('.img-div')
+
+	formBtn.setAttribute('tabindex', tabindexNumber)
+	cardName.setAttribute('tabindex', tabindexNumber)
+	cardInfosDiv.setAttribute('tabindex', tabindexNumber)
+	cardPhoto.setAttribute('tabindex', tabindexNumber)
+	logo.setAttribute('tabindex', tabindexNumber)
+	header.setAttribute('tabindex', tabindexNumber)
+	filterLabel.setAttribute('tabindex', tabindexNumber)
+	likeNPrice.setAttribute('tabindex', tabindexNumber)
+}
+
+function photosSectionTab(tabindexNumber) {
+	let likesPhotos = document.querySelectorAll('.like-photo')
+	let titlesPhotos = document.querySelectorAll('.card-photo-title')
+	let medias = document.getElementsByClassName('media')
+	let mediasArray = [].slice.call(medias)
+
+	mediasArray.forEach(element => { element.setAttribute('tabindex', tabindexNumber) })
+	likesPhotos.forEach(element => { element.setAttribute('tabindex', tabindexNumber) })
+	titlesPhotos.forEach(element => { element.setAttribute('tabindex', tabindexNumber)
+	})
+}
+
+function lightBoxTab(tabindexNumber) {
+	let lightboxTitle = document.querySelector('.lightbox-title')
+	lightbox.setAttribute('tabindex', tabindexNumber)
+	lightboxCrossBtn.setAttribute('tabindex', tabindexNumber)
+	lightboxPrev.setAttribute('tabindex', tabindexNumber)
+	lightboxNext.setAttribute('tabindex', tabindexNumber)
+	lightboxTitle.setAttribute('tabindex', tabindexNumber)
+}

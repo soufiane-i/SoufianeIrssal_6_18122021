@@ -11,14 +11,24 @@
   </head>
   <body>
     <header role="banner" id="header">
-      <a href="./index.html" class="logo" aria-label="FishEye Home page" role="lien"><img class="logo" src="assets/images/logo.png" alt="FishEye Home page" role="img" class='banner-img' aria-selected="true"/></a>
+      <a href="./index.html" class="logo" aria-label="FishEye Home page" role="link"><img class="logo" src="assets/images/logo.png" alt="FishEye Home page"/></a>
     </header>
     <main id="main" role="contenu principal" aria-hidden="false">
       <article class="photographer-section">
       </article>
+      <div class="like-and-price" tabindex="0">
+        <div class="like">
+            <span class="like-number">0</span>
+            <i class="fas fa-heart fa-lg heart-total"></i>
+          </div>
+          <div class="price">
+              <span id="price"></span>
+              € / jour
+          </div>
+        </div>
       <div class="photo-section">
         <div class="filter-section">
-          <label class="filter-label" for="filter-select">Trier par</label>
+          <label class="filter-label" for="filter-select" tabindex="0">Trier par</label>
           <select name="filter-dropdown" id="filters-dropdown">
             <option class="filter-btn filter-popularity" value="Popularite">Popularité</option>
             <option class="filter-btn filter-date" value="Date">Date</option>
@@ -30,7 +40,7 @@
         </div>
       </div>
     </main>
-    <div id="contact_modal" >
+    <div id="contact_modal" role="text" >
 			<div class="modal" role="dialog" aria-describedby="formulaire de contact" aria-hidden="true" aria-modal="true" tabindex="0">
 				<div class="modal-header">
           <div class="contact-title" tabindex="0">
@@ -55,26 +65,17 @@
         <img src="assets/icons/close.svg" class="form_close" onclick="closeModal()" onkeypress="closeModal()" tabindex="0"/>
 			</div>
 		</div>
-    <div class="like-and-price">
-      <div class="like">
-          <span class="like-number">0</span>
-          <i class="fas fa-heart fa-lg heart-total"></i>
-        </div>
-        <div class="price">
-            <span id="price"></span>
-            € / jour
-        </div>
-      </div>
-    <div class="lightbox-modal lightbox-modal-disable" role="dialog" aria-describedby="lightbox">
-      <button class="lightbox-prev" tabindex="1" aria-hidden="false">
-        <i class="fas fa-chevron-up fa-3x lightbox-prev-i" ></i>
-      </button>
+
+    <div class="lightbox-modal lightbox-modal-disable" role="dialog" aria-describedby="lightbox" tabindex="-1">
       <div class="lightbox-container">
       </div>
-      <button class="lightbox-next" tabindex="1" aria-hidden="false">
+      <button class="lightbox-prev" tabindex="-1" aria-hidden="false">
+        <i class="fas fa-chevron-up fa-3x lightbox-prev-i" ></i>
+      </button>
+      <button class="lightbox-next" tabindex="-1" aria-hidden="false">
         <i class="fas fa-chevron-up fa-3x lightbox-next-i" ></i>
       </button>
-      <button class="lightbox-close" tabindex="1" aria-hidden="false">
+      <button class="lightbox-close" tabindex="-1" aria-hidden="false">
         <i class="fas fa-times fa-3x"></i>
       </button>
     </div>

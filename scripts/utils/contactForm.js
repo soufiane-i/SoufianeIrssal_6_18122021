@@ -1,15 +1,10 @@
-const modalContainer = document.getElementById('contact_modal')
-const modal = document.querySelector('.modal')
 const firstName = document.getElementById('firstname')
 const lastName = document.getElementById('lastname')
 const email = document.getElementById('email')
 const message = document.getElementById('message')
 const champs = document.querySelectorAll('.form-champ')
 const submitBtn = document.querySelector('.contact_button')
-const filterDropDown = document.getElementById('filters-dropdown')
-const header = document.querySelector('header')
 
-const logo = document.querySelector('.logo')
 
 
 
@@ -110,52 +105,5 @@ function messageCheck() {
 	}
 }
 
-function displayModal() {
-	modalContainer.style.display = 'flex'
-	document.getElementById('main').setAttribute('tabindex', '-1')
-	document.getElementById('main').setAttribute('aria-hidden', 'true')
-	modal.setAttribute('aria-hidden', 'false')
-	modal.focus()
-	
-	let medias = document.getElementsByClassName('media')
-	let mediasArray = [].slice.call(medias)
-	mediasArray.forEach(element => {
-		element.setAttribute('tabindex', '-1')
-	})
-	let formBtn = document.getElementById('photograph_button')
-	filterDropDown.setAttribute('tabindex', '-1')
-	formBtn.setAttribute('tabindex', '-1')
-	logo.setAttribute('tabindex', '-1')
-	header.setAttribute('tabindex', '-1')
-}
-    
-function closeModal() {   
-	document.getElementById('main').setAttribute('tabindex', '0')
-	document.getElementById('main').setAttribute('aria-hidden', 'false')
-	modal.setAttribute('aria-hidden', 'true')
-	modal.focus()
-	
-	let medias = document.getElementsByClassName('media')
-	let mediasArray = [].slice.call(medias)
-	mediasArray.forEach(element => {
-		element.setAttribute('tabindex', '0')
-	})
-	modalContainer.style.display = 'none'
-	let formBtn = document.getElementById('photograph_button')
-	filterDropDown.setAttribute('tabindex', '0')
-	formBtn.setAttribute('tabindex', '0')
-	logo.setAttribute('tabindex', '0')
-	header.setAttribute('tabindex', '0')
-}
 
 
-document.onkeydown = checkKey
-
-//Touches de clavier associées aux éléments lightbox 
-function checkKey(e) {
-	e = e || window.event
-
-	if (e.keyCode == '27') {
-		closeModal()
-	}
-}

@@ -46,9 +46,15 @@ header a {
     
 }
 
-.infosDiv {
+.photographer-profile .infosDiv {
 text-align: center;
 }
+
+.photographer-content .photographer-profile .infosDiv {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    }
 
 .photographer-name {
     font-size: 64px;
@@ -134,6 +140,7 @@ option:hover {
     background-color: white;
     border: none;
 }
+
 .card-photo-container img, .card-photo-container video {
     width: 420px;
     height: 360px;
@@ -252,10 +259,16 @@ option:hover {
 }
 
 .lightbox-next {
+    position: absolute;
+    top: 50vh;
+    right: 15vw;
     transform: rotate(90deg);
 }
 
 .lightbox-prev {
+    position: absolute;
+    top: 50vh;
+    left: 15vw;
     transform: rotate(-90deg);
 }
 
