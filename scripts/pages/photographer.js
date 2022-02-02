@@ -84,6 +84,10 @@ async function init() {
 	displayDailyPrice(photographer)
 	displayMedias(mediasProp, heartEvent, mediasElementsEvent, mediasElementsTabEvent)
 	filter(0)
+	photosSectionTab(1)
+	profilCardTab(1)
+	filterTab(1)
+	header.focus()
 }
 init()
 
@@ -219,7 +223,7 @@ function displayLightBox(e) {
 }
 
 //Ferme la lightbox en desactivant ses element et en reactivant le overflow permettant le scroll
-function lightboxClose(e) {
+function lightboxClose() {
 	let lightboxImg = document.querySelector('.lightbox-img')
 	let lightboxVideo = document.querySelector('.lightbox-video')
 	lightboxVideo.classList.add('lightbox-element-disable')
@@ -239,14 +243,14 @@ function lightboxClose(e) {
 }
 
 //Fonction appelée lors du clique sur la fleche de gauche de la lightbox permettant de passer à l'élement precédent
-function previousMedia(e) {
+function previousMedia() {
 //LightboxSliding(next ou previous, element cliqué)
-	lightboxSliding('previous', e, 'click')
+	lightboxSliding('previous')
 } 
 
 //Fonction appelée lors du clique sur la fleche de droite de la lightbox permettant de passer à l'élement suivant
-function nextMedia(e) {
-	lightboxSliding('next', e, 'click')
+function nextMedia() {
+	lightboxSliding('next')
 } 
 
 let prevFilterIndex
@@ -260,10 +264,10 @@ function checkKey(e) {
 
 	//flèche gauche
 	if (e.keyCode == '37') {
-    	lightboxSliding('previous', lightboxPrev, 'press')
+    	lightboxSliding('previous')
 	//Flèche droite
 	} else if (e.keyCode == '39') {
-    	lightboxSliding('next', lightboxNext, 'press')
+    	lightboxSliding('next')
 	//Echap
 	} else if ((e.keyCode == '27')) {
 		//Formulaire
@@ -283,19 +287,13 @@ function checkKey(e) {
 		actualFilterIndex = prevFilterIndex + 1
 		if (actualFilterIndex == filterDropDown.length) actualFilterIndex = filterDropDown.length -1
 		filter(actualFilterIndex)
-	}else if ((e.keyCode == '13') && (lightboxPrev === document.activeElement)) {
-		lightboxSliding('previous', e, 'click')
-		console.log('prev')
-	} /* else if ((e.keyCode == '13') && (lightboxNext === document.activeElement)) {
-		console.log('next')
-
-	} */
+	}
 }
 
 
 
 //Fonction changeant l'élement de la lightbox en fonction de souhait d'avoir la precedante ou la suivante
-function lightboxSliding(direction, arrow, controller) {
+function lightboxSliding(direction) {
 	//DOM Elements
 	let lightboxImg = document.querySelector('.lightbox-img')
 	let lightboxVideo = document.querySelector('.lightbox-video')
@@ -305,34 +303,19 @@ function lightboxSliding(direction, arrow, controller) {
 	let actualElement
 	let nextElement
 
-	//adaptation du paramètre arrow qui change selon le choix des flèche ou du clique
-	if (controller == 'press') {
-		// Récuperer l'élément du tableau mediasElements regroupant tout les medias à l'aide du name de l'élément dand la lightbox en fonction de sa nature d'img ou de video
-		// Savoir si c'est une img ou une video grace à la classe 'lightbox-element-disable' permettant de savoir si l'img est caché ce qui voudrait dire que l'élement actuel est une video
-		if(lightboxImg.classList.contains('lightbox-element-disable')){
-			console.log(arrow.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name'))
-			//A partir de la fleche sur laquelle on clique, on remonte au parent afin de retrouver l'enfant correspondant à l'img ou à la video sachant que les deux chemin sont différents
-			let actualVideoName = arrow.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name')
-			// Grace au name on cherche la photo correspondant dans le tableau media regroupant tout les element
-			actualElement = mediasElements.namedItem(actualVideoName)
-		} else {
-			let actualImgName = arrow.parentNode.parentNode.childNodes[1].childNodes[1].getAttribute('name')
-			actualElement = mediasElements.namedItem(actualImgName)
-		}
-	} else if (controller == 'click') {
-		if(lightboxImg.classList.contains('lightbox-element-disable')){
-			let actualVideoName = arrow.target.parentNode.parentNode.childNodes[1].childNodes[2].getAttribute('name')
-			
-			actualElement = mediasElements.namedItem(actualVideoName)
-		} else {
-			let actualImgName = arrow.target.parentNode.parentNode.childNodes[1].childNodes[1].getAttribute('name')
-			actualElement = mediasElements.namedItem(actualImgName)
-			console.log(arrow.target.parentNode.parentNode.childNodes[1].childNodes[1])
-		}
-	} 
+	
+	if(lightboxImg.classList.contains('lightbox-element-disable')){
+		let actualVideoName = document.querySelector('.lightbox-video').getAttribute('name')
+		actualElement = mediasElements.namedItem(actualVideoName)
+	} else {
+		let actualImgName = document.querySelector('.lightbox-img').getAttribute('name')
+		actualElement = mediasElements.namedItem(actualImgName)
+	
+	}
+	
 
 
-	//Direction == 1 correspond au next appelé dans la fonction nextMedia et 0 l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
+	//Direction == 'next' correspond au next appelé dans la fonction nextMedia et 'previous' l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
 	if (direction == 'next') {
 		nextElement = actualElement.parentNode.parentNode.nextSibling.childNodes[0].childNodes[0]
 	} else {
@@ -398,6 +381,7 @@ function filter(filterindex) {
 	if(filterindex == 0) {
 		//HTMLCollection -> Array
 		elements = [].slice.call(cardsPhoto)
+		console.log(elements[0].childNodes[1].childNodes[1].childNodes[0].textContent);
 		//Triage par nombre de like croissant
 		elements.sort(function (a, b) { return a.childNodes[1].childNodes[1].childNodes[0].textContent - b.childNodes[1].childNodes[1].childNodes[0].textContent})
 		//Inversion des elements afin d'avoir le triage en ordre decroissant
@@ -460,6 +444,7 @@ function filter(filterindex) {
 		cardElementNew.setAttribute('alt', target.getAttribute('name'))
 		cardElementNew.setAttribute('id', target.getAttribute('name'))
 		cardElementNew.setAttribute('data-date', target.dataset.date)
+		cardElementLikeSection.setAttribute('aria-label', 'likes')
 		cardElementLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
 
 		cardElement.appendChild(cardElementContainer)
@@ -499,15 +484,13 @@ function closeModal() {
 	document.getElementById('main').setAttribute('aria-hidden', 'false')
 	modal.setAttribute('aria-hidden', 'true')
 	modal.focus()
-	profilCardTab(0)
-	photosSectionTab(0)
+	profilCardTab(1)
+	photosSectionTab(1)
 	let medias = document.getElementsByClassName('media')
 	let mediasArray = [].slice.call(medias)
 	mediasArray.forEach(element => {
 		element.setAttribute('tabindex', '0')
 	})
-	
-	filterDropDown.setAttribute('tabindex', '0')
 }
 
 
@@ -546,4 +529,9 @@ function lightBoxTab(tabindexNumber) {
 	lightboxPrev.setAttribute('tabindex', tabindexNumber)
 	lightboxNext.setAttribute('tabindex', tabindexNumber)
 	lightboxTitle.setAttribute('tabindex', tabindexNumber)
+}
+
+
+function filterTab(tabindexNumber) {
+	filterDropDown.setAttribute('tabindex', tabindexNumber)
 }

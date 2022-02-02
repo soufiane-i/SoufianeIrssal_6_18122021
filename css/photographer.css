@@ -157,7 +157,7 @@ option:hover {
 }
 
 .card-photo-title {
-    font-size: 24px;
+    font-size: 20px;
     margin: 15px 0;
     cursor: pointer;
 }
@@ -170,6 +170,15 @@ option:hover {
 .heart {
     cursor: pointer;
 }
+
+.like-photo {
+    width: 15%;
+}
+
+.like-access {
+    width: 0;
+}
+
 
 /* Like&price ----------------------------------------------------------------------------*/
 

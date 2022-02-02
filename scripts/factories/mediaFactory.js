@@ -26,7 +26,7 @@ function mediaFactory(data) {
 		cardMediaTitle.setAttribute('tabindex', '0')
 		cardMediaLikeSection.setAttribute('tabindex', '0')
 		cardMediaLikeSection.setAttribute('aria-label', 'likes')
-		cardMediaLikeSection.innerHTML = `<span class="like-local-number">${likes}</span><i class="fas fa-heart fa-lg like-heart heart"  ></i>`
+		cardMediaLikeSection.innerHTML = `<span class="like-local-number">${likes}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
 
 		cardMedia.appendChild(cardMediaContainer)
 		cardMedia.appendChild(cardMediaBottom)
