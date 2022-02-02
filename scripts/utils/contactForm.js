@@ -31,8 +31,6 @@ function submitFunct(e){
 	lastNameCheck()
 	emailCheck()
 	messageCheck()
-	console.log(formDataArray.length)
-	console.log(champs.length)
 	//---------------------------------
 	// if number of valid form input are equal to the total number of input form e.g if all input are valid
 	if (formDataArray.length == champs.length) {    

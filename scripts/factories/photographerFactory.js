@@ -90,7 +90,6 @@ function photographerFactory(data) {
 		tagLineDiv.textContent = tagline
 		priceDiv.textContent = price + '€/jour'
 
-
 		infosDiv.appendChild(locationDiv)
 		infosDiv.appendChild(tagLineDiv)
 		infosDiv.appendChild(priceDiv)

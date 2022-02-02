@@ -356,24 +356,19 @@ const popularityFilter = document.querySelector('.filter-popularity')
 const dateFilter = document.querySelector('.filter-date')
 const titleFilter = document.querySelector('.filter-title')
 
-console.log(titleFilter)
-
 //Ecoute du clique sur les filtres
-/* function titleFilterEvent() { titleFilter.addEventListener('click', filter(0)) }
-function popularityFilterEvent() { popularityFilter.addEventListener('click', filter(1)) }
-function dateFilterEvent() { dateFilter.addEventListener('click', filter(2))} */
-
-	
 titleFilter.addEventListener('click', titleIndex)
 popularityFilter.addEventListener('click', popularityIndex)
 dateFilter.addEventListener('click', dateIndex)
 
+//Choix de filtre selon l'index dans le filtre
 function popularityIndex() { filter(0) }
 
 function dateIndex() { filter(1) }
 
 function titleIndex() { filter(2) }
 
+//Fonction de filtrage
 function filter(filterindex) {
 	let cardsPhoto = document.querySelectorAll('.card-photo')
 
@@ -384,7 +379,6 @@ function filter(filterindex) {
 	if(filterindex == 0) {
 		//HTMLCollection -> Array
 		elements = [].slice.call(cardsPhoto)
-		console.log(elements[0].childNodes[1].childNodes[1].childNodes[0].textContent);
 		//Triage par nombre de like croissant
 		elements.sort(function (a, b) { return a.childNodes[1].childNodes[1].childNodes[0].textContent - b.childNodes[1].childNodes[1].childNodes[0].textContent})
 		//Inversion des elements afin d'avoir le triage en ordre decroissant
@@ -463,9 +457,7 @@ function filter(filterindex) {
 	mediasElementsTabEvent() 
 }
 
-
-
-
+//Ouverture fu formulaire
 function displayModal() {
 	modalContainer.style.display = 'flex'
 
@@ -478,7 +470,8 @@ function displayModal() {
 	photosSectionTab(-1)
 	filterDropDown.setAttribute('tabindex', '-1')
 }
-    
+
+//Fermeture du formulaire
 function closeModal() { 
 	modalContainer.style.display = 'none' 
 
@@ -495,7 +488,7 @@ function closeModal() {
 	})
 }
 
-
+//Gestion de la possibilité de naviguer dans le profil au clavier
 function profilCardTab(tabindexNumber) {
 	let formBtn = document.getElementById('photograph_button')
 	let cardName = document.querySelector('.photographer-name')
@@ -512,6 +505,7 @@ function profilCardTab(tabindexNumber) {
 	likeNPrice.setAttribute('tabindex', tabindexNumber)
 }
 
+//Gestion de la possibilité de naviguer dans la galerie au clavier
 function photosSectionTab(tabindexNumber) {
 	let likesPhotos = document.querySelectorAll('.like-photo')
 	let titlesPhotos = document.querySelectorAll('.card-photo-title')
@@ -524,8 +518,10 @@ function photosSectionTab(tabindexNumber) {
 	})
 }
 
+//Gestion de la possibilité de naviguer dans la lightbox au clavier
 function lightBoxTab(tabindexNumber) {
 	let lightboxTitle = document.querySelector('.lightbox-title')
+
 	lightbox.setAttribute('tabindex', tabindexNumber)
 	lightboxCrossBtn.setAttribute('tabindex', tabindexNumber)
 	lightboxPrev.setAttribute('tabindex', tabindexNumber)
@@ -533,7 +529,7 @@ function lightBoxTab(tabindexNumber) {
 	lightboxTitle.setAttribute('tabindex', tabindexNumber)
 }
 
-
+//Gestion de la possibilité de naviguer dans le filtre au clavier
 function filterTab(tabindexNumber) {
 	filterDropDown.setAttribute('tabindex', tabindexNumber)
 }
