@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/photographer.css" rel="stylesheet" type="text/css" />
@@ -10,16 +10,16 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header role="banner" id="header">
-      <a href="./index.html" class="logo" aria-label="FishEye Home page" role="link"><img class="logo" src="assets/images/logo.png" alt="FishEye Home page"/></a>
+    <header id="header">
+      <a href="./index.html" class="logo" aria-label="FishEye Home page"><img class="logo" src="assets/images/logo.png" alt="FishEye Home page"/></a>
     </header>
-    <main id="main" role="contenu principal" aria-hidden="false">
+    <main id="main" aria-hidden="false">
       <article class="photographer-section">
       </article>
-      <div class="like-and-price" tabindex="0" aria-label="nombres de likes et tarif journalier">
+      <div class="like-and-price" tabindex="0">
         <div class="like">
             <span class="like-number">0</span>
-            <i class="fas fa-heart fa-lg heart-total" aria-label="likes"></i>
+            <span class="fas fa-heart fa-lg heart-total icon" aria-label="likes"></span>
           </div>
           <div class="price">
               <span id="price"></span>
@@ -28,7 +28,7 @@
         </div>
       <div class="photo-section">
         <div class="filter-section">
-          <label class="filter-label" for="filter-select" tabindex="0">Trier par</label>
+          <label class="filter-label" for="filters-dropdown" tabindex="0">Trier par</label>
           <select name="filter-dropdown" id="filters-dropdown">
             <option class="filter-btn filter-popularity" value="Popularite">Popularité</option>
             <option class="filter-btn filter-date" value="Date">Date</option>
@@ -40,8 +40,8 @@
         </div>
       </div>
     </main>
-    <div id="contact_modal" role="text" >
-			<div class="modal" role="dialog" aria-describedby="formulaire de contact" aria-hidden="true" aria-modal="true" tabindex="0">
+    <div id="contact_modal">
+			<div class="modal" role="dialog" aria-describedby="formContact" aria-hidden="true" aria-modal="true" tabindex="0">
 				<div class="modal-header">
           <div class="contact-title" tabindex="0">
             <h2>Contactez-moi</h2>
@@ -50,33 +50,33 @@
           
         </div>
 				<form>
-					<div>
+					<div role="group" id="formContact">
 						<label for="firstname" tabindex="0">Prénom</label>
-						<input type="text" name="firstname" id="firstname" class="form-champ" minlength="2" required>
+						<input type="text" name="firstname" id="firstname" class="form-champ" minlength="2" required aria-required="true">
             <label for="lastname" tabindex="0">Nom</label>
-						<input type="text" name= "lastname" id="lastname" class="form-champ" minlength="2" required>
+						<input type="text" name= "lastname" id="lastname" class="form-champ" minlength="2" required aria-required="true">
             <label for="email" tabindex="0">Email</label>
-						<input type="text" name= "email" id="email" class="form-champ" required>
+						<input type="text" name= "email" id="email" class="form-champ" required aria-required="true">
             <label for="message" class="label-message" tabindex="0">Votre message</label>
-						<textarea name="message" id="message" cols="50" rows="4" class="form-champ"></textarea>
+						<textarea name="message" id="message" cols="50" rows="4" class="form-champ" aria-required="false"></textarea>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
-        <img src="assets/icons/close.svg" class="form_close" onclick="closeModal()" onkeypress="closeModal()" tabindex="0"/>
+        <img src="assets/icons/close.svg" class="form_close" alt="bouton fermer" onclick="closeModal()" onkeypress="closeModal()" tabindex="0"/>
 			</div>
 		</div>
 
-    <div class="lightbox-modal lightbox-modal-disable" role="dialog" aria-describedby="lightbox" tabindex="-1">
+    <div class="lightbox-modal lightbox-modal-disable" role="dialog" tabindex="-1">
       <div class="lightbox-container">
       </div>
       <button class="lightbox-prev" tabindex="-1" aria-hidden="false">
-        <i class="fas fa-chevron-up fa-3x lightbox-prev-i" ></i>
+        <span class="fas fa-chevron-up fa-3x lightbox-prev-i icon" aria-label="élement précédent" ></span>
       </button>
       <button class="lightbox-next" tabindex="-1" aria-hidden="false">
-        <i class="fas fa-chevron-up fa-3x lightbox-next-i" ></i>
+        <span class="fas fa-chevron-up fa-3x lightbox-next-i icon" aria-label="élement suivant"></span>
       </button>
-      <button class="lightbox-close" tabindex="-1" aria-hidden="false">
-        <i class="fas fa-times fa-3x"></i>
+      <button class="lightbox-close icon" tabindex="-1" aria-hidden="false">
+        <span class="fas fa-times fa-3x" aria-label="fermer lighbox"></span>
       </button>
     </div>
     <script src="/scripts/pages/photographer.js"></script>

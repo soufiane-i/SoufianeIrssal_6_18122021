@@ -71,6 +71,7 @@ function photographerFactory(data) {
 		const tagLineDiv = document.createElement('div')
 		const priceDiv = document.createElement('div')
 		const infosDiv = document.createElement('div')
+		article.classList.add('profile')
 		profileHeader.setAttribute('href', `photographer.html?id=${id}`)
 		profileHeader.setAttribute('aria-label', `profile de ${name}`)
 		profileHeader.setAttribute('aria-label', `informations sur ${name}`)

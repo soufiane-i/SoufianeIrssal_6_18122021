@@ -18,25 +18,11 @@ header a {
     margin-bottom: 30px;
 }
 
-.photographer-content .img-div {
-    margin: auto 0;
-    text-align: right;
-    height: 240px;
-    width: 100%;
-    
-}
+.profile .infosDiv {
+    text-align: center;
+} 
 
 
-.photographer-content .img-div img {
-    margin: auto 0;
-    text-align: right;
-    height: 100%;
-    width: 240px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
- 
 /* Photograph-profile ------------*/
 
 .photographer-profile {
@@ -46,15 +32,27 @@ header a {
     
 }
 
-.photographer-profile .infosDiv {
-text-align: center;
-}
-
 .photographer-content .photographer-profile .infosDiv {
     text-align: left;
     display: flex;
     flex-direction: column;
-    }
+}
+
+.photographer-content .img-div {
+    margin: auto 0;
+    text-align: right;
+    height: 240px;
+    width: 100%;  
+}
+
+.photographer-content .img-div img {
+    margin: auto 0;
+    text-align: right;
+    height: 100%;
+    width: 240px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
 .photographer-name {
     font-size: 64px;
@@ -172,7 +170,7 @@ option:hover {
 }
 
 .like-photo {
-    width: 15%;
+    width: 16%;
 }
 
 .like-access {
@@ -202,7 +200,7 @@ option:hover {
     font-size: 26px;
 }
 
-.like-and-price i {
+.like-and-price .icon {
     color: black;
 }
 
@@ -256,7 +254,7 @@ option:hover {
     background-color: white;
 }
 
-.lightbox-modal i {
+.lightbox-modal .icon {
     margin: 0 30px;
     color: #901C1C;
 }
@@ -289,7 +287,6 @@ option:hover {
 #contact_modal {
     display: none;
     position: fixed;
-    align-items: space;
     top: 0;
     width: 100vw;
     height: 100vh;
@@ -306,7 +303,6 @@ option:hover {
     height: 86%;
     display: flex;
     flex-direction: column;
-    align-items: left;
     padding: 35px;
     padding-top: 5px;
     margin: auto;

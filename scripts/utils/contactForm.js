@@ -51,7 +51,6 @@ function submitFunct(e){
 // function which clear form after submit success
 function submitClear(){
 	console.log('Formulaire envoyé')
-	firstName.classList.remove('form-champ-error')
 	for(let i = 0; i<champs.length; i++){  // loop which clear form inputs 
 		champs[i].value = ''
 	}
@@ -66,10 +65,12 @@ function firstNameCheck() {
 		formDataArray.push('check') 
 		// add 'check' in formDataArray array to count how many input forms are valid
 		firstName.classList.remove('form-champ-error')
+		firstName.setAttribute('aria-invalid', 'false')
 		console.log(firstName.value)             
      
 	} else {
 		firstName.classList.add('form-champ-error')
+		firstName.setAttribute('aria-invalid', 'true')
 	}
 }
   
@@ -77,9 +78,11 @@ function lastNameCheck() {
 	if (lastNameRegex.test(lastName.value.trim())) {
 		formDataArray.push('check')
 		lastName.classList.remove('form-champ-error')
-		console.log(lastName.value) 
+		lastName.setAttribute('aria-invalid', 'false')
+		console.log(lastName)
 	} else {
 		lastName.classList.add('form-champ-error')
+		lastName.setAttribute('aria-invalid', 'true')
 	}
 }
   
@@ -88,10 +91,11 @@ function emailCheck() {
 	if (emailRegex.test(email.value.trim())) {
 		formDataArray.push('check')
 		email.classList.remove('form-champ-error')
+		email.setAttribute('aria-invalid', 'false')
 		console.log(email.value) 
 	} else {
 		email.classList.add('form-champ-error')
-      
+		email.setAttribute('aria-invalid', 'true')
 	}
 }
 

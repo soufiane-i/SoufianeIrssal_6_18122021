@@ -103,6 +103,8 @@ function heartEvent() {
 
 //A chaque clique, le compteur du coeur local et du coeur global sont incrementés
 function heartsIncrementation(e) {
+	
+	console.log(e)
 	let targetHeart = e.target.parentNode.firstChild
 	heartTotal.textContent++
 	targetHeart.textContent++ 
@@ -276,7 +278,8 @@ function checkKey(e) {
 		//Slides
 		} else if (!lightbox.classList.contains('lightbox-modal-disable')) {
 			lightboxClose()
-		} 
+		}
+		 
 	} else if (e.keyCode == '38' && filterDropDown === document.activeElement) {
 		prevFilterIndex = filterDropDown.selectedIndex
 		actualFilterIndex = prevFilterIndex - 1
@@ -444,8 +447,7 @@ function filter(filterindex) {
 		cardElementNew.setAttribute('alt', target.getAttribute('name'))
 		cardElementNew.setAttribute('id', target.getAttribute('name'))
 		cardElementNew.setAttribute('data-date', target.dataset.date)
-		cardElementLikeSection.setAttribute('aria-label', 'likes')
-		cardElementLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><i class="fas fa-heart fa-lg like-heart heart"></i>`
+		cardElementLikeSection.innerHTML = `<span class="like-local-number">${newLike}</span><span class="fas fa-heart fa-lg like-heart heart icon" aria-label='likes'></span>`
 
 		cardElement.appendChild(cardElementContainer)
 		cardElement.appendChild(cardElementBottom)
