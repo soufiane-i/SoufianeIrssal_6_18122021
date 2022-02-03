@@ -210,12 +210,7 @@ function displayLightBox(e) {
 	lightbox.classList.remove('lightbox-modal-disable')
 	//Désactiver scroll 
 	document.body.style.overflow = 'hidden'  
-	lightboxCrossBtn.setAttribute('aria-hidden', 'false')
-	lightboxPrev.setAttribute('aria-hidden', 'false')	
-	lightboxNext.setAttribute('aria-hidden', 'false')
 	let formBtn = document.querySelector('.contact_button')
-	formBtn.setAttribute('aria-hidden', 'true')
-	logo.setAttribute('aria-hidden', 'true')	
 	lightbox.focus()
 	
 	lightBoxTab(1)
@@ -462,8 +457,6 @@ function displayModal() {
 	modalContainer.style.display = 'flex'
 
 	document.getElementById('main').setAttribute('tabindex', '-1')
-	document.getElementById('main').setAttribute('aria-hidden', 'true')
-	modal.setAttribute('aria-hidden', 'false')
 	modal.focus()
 
 	profilCardTab(-1)
@@ -476,8 +469,7 @@ function closeModal() {
 	modalContainer.style.display = 'none' 
 
 	document.getElementById('main').setAttribute('tabindex', '0')
-	document.getElementById('main').setAttribute('aria-hidden', 'false')
-	modal.setAttribute('aria-hidden', 'true')
+
 	modal.focus()
 	profilCardTab(1)
 	photosSectionTab(1)
