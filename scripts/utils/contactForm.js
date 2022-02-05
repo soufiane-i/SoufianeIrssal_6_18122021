@@ -5,33 +5,24 @@ const message = document.getElementById('message')
 const champs = document.querySelectorAll('.form-champ')
 const submitBtn = document.querySelector('.contact_button')
 
-
-
-
-
 let firstNameRegex = /^[a-z-]{2,}$/i
 let lastNameRegex = /^[a-z ,.'-]{2,}$/i
 let messageRegex = /^[a-z ,.'-]{0,}$/i
 let emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
-
 // variables
 let formDataArray = []
-
 
 // form submit event 
 submitBtn.addEventListener('click', submitFunct)
 
-
 //submit function
 function submitFunct(e){
-
 	// Function which display error message
 	firstNameCheck()
 	lastNameCheck()
 	emailCheck()
 	messageCheck()
-	//---------------------------------
 	// if number of valid form input are equal to the total number of input form e.g if all input are valid
 	if (formDataArray.length == champs.length) {    
 		// Function which reset the form if it was send           
@@ -42,8 +33,6 @@ function submitFunct(e){
 	formDataArray = []       
 	// Don't refresh page                                  
 	e.preventDefault()                                        
-  
-    
 }
 
 // function which clear form after submit success
@@ -52,10 +41,7 @@ function submitClear(){
 	for(let i = 0; i<champs.length; i++){  // loop which clear form inputs 
 		champs[i].value = ''
 	}
-
- 
 }
-  
   
 function firstNameCheck() {
 	// Trim() delete blank space around unnecessary + check if prenom input match with prenom regex
@@ -65,7 +51,6 @@ function firstNameCheck() {
 		firstName.classList.remove('form-champ-error')
 		firstName.setAttribute('aria-invalid', 'false')
 		console.log(firstName.value)             
-     
 	} else {
 		firstName.classList.add('form-champ-error')
 		firstName.setAttribute('aria-invalid', 'true')

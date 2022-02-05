@@ -8,6 +8,7 @@ function mediaFactory(data) {
 	const imageAsset = `assets/media/${photographerFirstName}/${image}`
 	const videoAsset = `assets/media/${photographerFirstName}/${video}`
 
+	//Creation des cartes dans la galerie
 	function getMediaCardDOM() {
 		//Creer le corps global de la mediaCard
 		const cardMedia = document.createElement('div')
@@ -45,7 +46,6 @@ function mediaFactory(data) {
 			cardMediaElement.classList.add('videoElement')
 			cardMediaContainer.appendChild(cardMediaElement)
 		} 
-
 		//Attributs et classe valable quelque soit la nature du media
 		cardMediaElement.setAttribute('tabindex', '0')
 		cardMediaElement.setAttribute('name', title)
@@ -59,5 +59,3 @@ function mediaFactory(data) {
 
 	} return { id, photographerId, title, image, video, likes, date, price, getMediaCardDOM }
 } 
-
-

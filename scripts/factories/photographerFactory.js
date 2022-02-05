@@ -8,6 +8,7 @@ function photographerFactory(data) {
 	const queryString = window.location.search 
 	const urlParams = new URLSearchParams(queryString)
 	
+	//Différencier le pattern pour l'index.html et celui pour le photographer.html
 	if(urlParams.has('id')){
 		getUserProfileDOM() 
 		return { name, photographerPortrait, city, country, tagline, price, id, getUserProfileDOM }
@@ -16,6 +17,47 @@ function photographerFactory(data) {
 		return { name, photographerPortrait, city, country, tagline, price, id, getIndexPhotographerCard }
 	}
 
+	//Creation des cartes de profil dans index.html
+	function getIndexPhotographerCard() {
+		const article = document.createElement( 'article' )
+		const profileHeader = document.createElement('a')
+		const img = document.createElement( 'img' )
+		const h2 = document.createElement( 'h2' )
+		const locationDiv = document.createElement( 'div' )
+		const tagLineDiv = document.createElement('div')
+		const priceDiv = document.createElement('div')
+		const infosDiv = document.createElement('div')
+		article.classList.add('profile')
+		profileHeader.setAttribute('href', `photographer.html?id=${id}`)
+		profileHeader.setAttribute('aria-label', `profile de ${name}`)
+		profileHeader.setAttribute('aria-label', `informations sur ${name}`)
+		profileHeader.setAttribute('role', 'link')
+		img.setAttribute('src', photographerPortrait)
+		img.setAttribute('alt', name)
+		infosDiv.setAttribute('tabindex', '0')
+		infosDiv.classList.add('infosDiv')
+		profileHeader.classList.add('profile-header')
+		locationDiv.classList.add('location')
+		priceDiv.classList.add('price')
+		tagLineDiv.classList.add('tagLine')
+	
+		h2.textContent = name
+		locationDiv.textContent = city + ', ' + country
+		tagLineDiv.textContent = tagline
+		priceDiv.textContent = price + '€/jour'
+	
+		infosDiv.appendChild(locationDiv)
+		infosDiv.appendChild(tagLineDiv)
+		infosDiv.appendChild(priceDiv)
+		article.appendChild(profileHeader)
+		article.appendChild(infosDiv)
+		profileHeader.appendChild(img)
+		profileHeader.appendChild(h2)
+	
+		return (article)
+	}
+
+	//Creation de la carte de profil dans photographer.html
 	function getUserProfileDOM() {
 		const contactName = document.querySelector('.contact-name')
 		const photographerContent = document.createElement('div')
@@ -60,45 +102,6 @@ function photographerFactory(data) {
 		photographerContent.appendChild(imgDiv)
 
 		return(photographerContent)
-	}
-
-	function getIndexPhotographerCard() {
-		const article = document.createElement( 'article' )
-		const profileHeader = document.createElement('a')
-		const img = document.createElement( 'img' )
-		const h2 = document.createElement( 'h2' )
-		const locationDiv = document.createElement( 'div' )
-		const tagLineDiv = document.createElement('div')
-		const priceDiv = document.createElement('div')
-		const infosDiv = document.createElement('div')
-		article.classList.add('profile')
-		profileHeader.setAttribute('href', `photographer.html?id=${id}`)
-		profileHeader.setAttribute('aria-label', `profile de ${name}`)
-		profileHeader.setAttribute('aria-label', `informations sur ${name}`)
-		profileHeader.setAttribute('role', 'link')
-		img.setAttribute('src', photographerPortrait)
-		img.setAttribute('alt', name)
-		infosDiv.setAttribute('tabindex', '0')
-		infosDiv.classList.add('infosDiv')
-		profileHeader.classList.add('profile-header')
-		locationDiv.classList.add('location')
-		priceDiv.classList.add('price')
-		tagLineDiv.classList.add('tagLine')
-
-		h2.textContent = name
-		locationDiv.textContent = city + ', ' + country
-		tagLineDiv.textContent = tagline
-		priceDiv.textContent = price + '€/jour'
-
-		infosDiv.appendChild(locationDiv)
-		infosDiv.appendChild(tagLineDiv)
-		infosDiv.appendChild(priceDiv)
-		article.appendChild(profileHeader)
-		article.appendChild(infosDiv)
-		profileHeader.appendChild(img)
-		profileHeader.appendChild(h2)
-
-		return (article)
 	}
 } 
 

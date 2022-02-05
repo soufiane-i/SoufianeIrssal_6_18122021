@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/*global some_unused_var*/
 
 const header = document.querySelector('header')
 const logo = document.querySelector('.logo')
@@ -7,6 +8,19 @@ const modal = document.querySelector('.modal')
 const filterDropDown = document.getElementById('filters-dropdown')
 const filterLabel = document.querySelector('.filter-label')
 const likeNPrice = document.querySelector('.like-and-price')
+let heartTotal = document.querySelector('.like-number')
+let hearts = document.getElementsByClassName('heart')
+let mediasElements = document.getElementsByClassName('media')
+let cardsPhotoContainer = document.getElementsByClassName('card-photo-container')
+let likesPhotos = document.getElementsByClassName('like-photo')
+const lightbox = document.querySelector('.lightbox-modal')
+let lightboxContainer = document.querySelector('.lightbox-container')
+const lightboxCrossBtn = document.querySelector('.lightbox-close')
+const lightboxPrev = document.querySelector('.lightbox-prev-i')
+const lightboxNext = document.querySelector('.lightbox-next-i')
+const popularityFilter = document.querySelector('.filter-popularity')
+const dateFilter = document.querySelector('.filter-date')
+const titleFilter = document.querySelector('.filter-title')
 
 // Récupération des infos d'un photographes selon l'id dans l'url
 async function getJsonElements(e){
@@ -56,11 +70,8 @@ async function displayDailyPrice(photographer) {
 	price.textContent = photographer.price   
 }
 
-//Affcher les photos et vidéos du profil. 
-//DOM Element
-let heartTotal = document.querySelector('.like-number')
-
-function displayMedias(mediasProp, heartEvent, mediasElementsEvent) {
+//Affcher les photos et vidéos du profil
+function displayMedias(mediasProp, heartClickEvent, heartEnterEvent, mediasElementsEvent) {
 	const mediasSection = document.querySelector('.cards-photo')
 	// Associer le bon modèle dans le photograppher Factory pour chaque media(photo ou video) avec le bon nombre de coeur mis à jour
 	mediasProp.forEach((media) => {
@@ -70,7 +81,8 @@ function displayMedias(mediasProp, heartEvent, mediasElementsEvent) {
 		heartTotal.textContent = parseInt(heartTotal.textContent) + media.likes 
 	})
 	//Rappel de ses fonction à chaque affichage pour mettre à jour les localisations
-	heartEvent()
+	heartClickEvent()
+	heartEnterEvent()
 	mediasElementsEvent()
 	mediasElementsTabEvent()
 }
@@ -82,7 +94,7 @@ async function init() {
 	const { mediasProp } = await getJsonElements('medias')
 	displayProfilCard(photographer)
 	displayDailyPrice(photographer)
-	displayMedias(mediasProp, heartEvent, mediasElementsEvent, mediasElementsTabEvent)
+	displayMedias(mediasProp, heartClickEvent, mediasElementsEvent, mediasElementsTabEvent)
 	filter(0)
 	photosSectionTab(1)
 	profilCardTab(1)
@@ -92,41 +104,27 @@ async function init() {
 init()
 
 //Système de like-----------------------------------------------------------------------------------------------------------------------------------
-//DOM Element
-let hearts = document.getElementsByClassName('heart')
-
-
 //Ecoute des cliques sur les coeurs de chaques element de la section media
-function heartEvent() {
+function heartClickEvent() {
 	for (let i = 0; i < hearts.length; i++) hearts[i].addEventListener('click', heartsIncrementation) 
+}
+
+function heartEnterEvent() {
+	for (let i = 0; i < likesPhotos.length; i++) likesPhotos[i].addEventListener('keypress', heartsIncrementation) 
 }
 
 //A chaque clique, le compteur du coeur local et du coeur global sont incrementés
 function heartsIncrementation(e) {
-	
-	console.log(e)
-	let targetHeart = e.target.parentNode.firstChild
+	let targetHeart
+	if (e.key === 'Enter') {
+		targetHeart = e.target.firstChild
+	} else targetHeart = e.target.parentNode.firstChild
 	heartTotal.textContent++
 	targetHeart.textContent++ 
 }
-
-//Section media et lightbox-------------------------------------------------------------------------------------------------------------------------
-//DOM Element
-let mediasElements = document.getElementsByClassName('media')
-let cardsPhotoContainer = document.getElementsByClassName('card-photo-container')
-const lightbox = document.querySelector('.lightbox-modal')
-let lightboxContainer = document.querySelector('.lightbox-container')
-const lightboxCrossBtn = document.querySelector('.lightbox-close')
-const lightboxPrev = document.querySelector('.lightbox-prev-i')
-const lightboxNext = document.querySelector('.lightbox-next-i')
-
-
-
-
-//Ecoute des cliques sur les elements de la section media
+//Ecoute des cliques sur les elements de la section media--------------------------------------------------------------------------------------------------------------------------------------------
 function mediasElementsEvent() { 
-	for (let i = 0; i < mediasElements.length; i++) mediasElements[i].addEventListener('click', displayLightBox)  
-
+	for (let i = 0; i < mediasElements.length; i++) mediasElements[i].addEventListener('click', displayLightBox) 
 }
 
 function mediasElementsTabEvent() { 
@@ -141,13 +139,9 @@ lightboxCrossBtn.addEventListener('keypress', lightboxClose)
 lightboxPrev.addEventListener('keypress', previousMedia)
 lightboxNext.addEventListener('keypress', nextMedia)
 
-
+//Lighbox---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Fonction appélée lors du clique sur un element dans la section media
 function displayLightBox(e) {
-
-		
-
-		
 	//recuperation de l'élement cliqué avec son src et son name
 	let targetMedia = e.target
 	let targetMediasSrc = targetMedia.src
@@ -159,7 +153,7 @@ function displayLightBox(e) {
 	let lightboxTitle = document.querySelector('.lightbox-title')
 		
 	/*Si le lightboxContainer ne contient ni photo ni video, create l'élement souhaité avec le bon receptacle(img ou video)
-		tout en creant l'autre mais caché afin de ne pas avoir à en creer à chaque fois mais seulement à changer le src, le name et le titre */ 
+	tout en creant l'autre mais caché afin de ne pas avoir à en creer à chaque fois mais seulement à changer le src, le name et le titre */ 
 	if(lightboxContainer.childElementCount == 0) {
 		lightboxImg = document.createElement('img')
 		lightboxVideo = document.createElement('video')
@@ -210,7 +204,6 @@ function displayLightBox(e) {
 	lightbox.classList.remove('lightbox-modal-disable')
 	//Désactiver scroll 
 	document.body.style.overflow = 'hidden'  
-	let formBtn = document.querySelector('.contact_button')
 	lightbox.focus()
 	
 	lightBoxTab(1)
@@ -223,12 +216,15 @@ function displayLightBox(e) {
 function lightboxClose() {
 	let lightboxImg = document.querySelector('.lightbox-img')
 	let lightboxVideo = document.querySelector('.lightbox-video')
+	//Ajout de la classe contenant le display:none permettant de faire disparaitre la lightbox
 	lightboxVideo.classList.add('lightbox-element-disable')
 	lightboxImg.classList.add('lightbox-element-disable')
 	lightbox.classList.add('lightbox-modal-disable')
+	//Réactivation du scroll
 	document.body.style.overflow = 'auto'
 	let lastLighboxElement = document.querySelector('.lightbox-img').getAttribute('name')
 	let medias = document.getElementsByClassName('media')
+	//Focus sur l'élément sur lequelle on était avant d'ouvrir la lightbox
 	for (let i = 0; i < medias.length; i++) {
 		if (medias[i].getAttribute('name') === lastLighboxElement) {
 			medias[i].focus()
@@ -239,26 +235,12 @@ function lightboxClose() {
 	photosSectionTab(1)
 }
 
-//Fonction appelée lors du clique sur la fleche de gauche de la lightbox permettant de passer à l'élement precédent
-function previousMedia() {
-//LightboxSliding(next ou previous, element cliqué)
-	lightboxSliding('previous')
-} 
-
-//Fonction appelée lors du clique sur la fleche de droite de la lightbox permettant de passer à l'élement suivant
-function nextMedia() {
-	lightboxSliding('next')
-} 
-
+//Touches de clavier associées aux éléments lightbox 
+document.onkeydown = checkKey
 let prevFilterIndex
 let actualFilterIndex
-
-document.onkeydown = checkKey
-
-//Touches de clavier associées aux éléments lightbox 
 function checkKey(e) {
 	e = e || window.event
-
 	//flèche gauche
 	if (e.keyCode == '37') {
     	lightboxSliding('previous')
@@ -273,13 +255,14 @@ function checkKey(e) {
 		//Slides
 		} else if (!lightbox.classList.contains('lightbox-modal-disable')) {
 			lightboxClose()
-		}
-		 
+		}	 
+		//Fleche haut sur filtre
 	} else if (e.keyCode == '38' && filterDropDown === document.activeElement) {
 		prevFilterIndex = filterDropDown.selectedIndex
 		actualFilterIndex = prevFilterIndex - 1
 		if (actualFilterIndex < 0) actualFilterIndex = 0
 		filter(actualFilterIndex)	
+		//Fleche bas sur filtre
 	} else if (e.keyCode == '40' && filterDropDown === document.activeElement) {
 		prevFilterIndex = filterDropDown.selectedIndex
 		actualFilterIndex = prevFilterIndex + 1
@@ -288,7 +271,15 @@ function checkKey(e) {
 	}
 }
 
-
+//Fonction appelée lors du clique sur la fleche de gauche de la lightbox permettant de passer à l'élement precédent
+function previousMedia() {
+//LightboxSliding(next ou previous, element cliqué)
+	lightboxSliding('previous')
+} 
+//Fonction appelée lors du clique sur la fleche de droite de la lightbox permettant de passer à l'élement suivant
+function nextMedia() {
+	lightboxSliding('next')
+} 
 
 //Fonction changeant l'élement de la lightbox en fonction de souhait d'avoir la precedante ou la suivante
 function lightboxSliding(direction) {
@@ -296,23 +287,18 @@ function lightboxSliding(direction) {
 	let lightboxImg = document.querySelector('.lightbox-img')
 	let lightboxVideo = document.querySelector('.lightbox-video')
 	let lightboxTitle = document.querySelector('.lightbox-title')
-
 	//Variables
 	let actualElement
 	let nextElement
 
-	
 	if(lightboxImg.classList.contains('lightbox-element-disable')){
 		let actualVideoName = document.querySelector('.lightbox-video').getAttribute('name')
 		actualElement = mediasElements.namedItem(actualVideoName)
 	} else {
 		let actualImgName = document.querySelector('.lightbox-img').getAttribute('name')
 		actualElement = mediasElements.namedItem(actualImgName)
-	
 	}
 	
-
-
 	//Direction == 'next' correspond au next appelé dans la fonction nextMedia et 'previous' l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
 	if (direction == 'next') {
 		nextElement = actualElement.parentNode.parentNode.nextSibling.childNodes[0].childNodes[0]
@@ -343,14 +329,7 @@ function lightboxSliding(direction) {
 	lightboxTitle.textContent = nextElementName
 }
 
-
-
-//Filtre
-// DOM Elements
-const popularityFilter = document.querySelector('.filter-popularity')
-const dateFilter = document.querySelector('.filter-date')
-const titleFilter = document.querySelector('.filter-title')
-
+//Filtre------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Ecoute du clique sur les filtres
 titleFilter.addEventListener('click', titleIndex)
 popularityFilter.addEventListener('click', popularityIndex)
@@ -366,9 +345,8 @@ function titleIndex() { filter(2) }
 //Fonction de filtrage
 function filter(filterindex) {
 	let cardsPhoto = document.querySelectorAll('.card-photo')
-
 	let elements
-		
+	
 	// Triage en fonction du filtre choisi
 	// Index 0 : popularite - Index 1 : date - Index 2 : titre
 	if(filterindex == 0) {
@@ -380,7 +358,6 @@ function filter(filterindex) {
 		elements.reverse()
 	} else if (filterindex == 1) {
 		elements = [].slice.call(mediasElements)
-		console.log(elements[0].dataset.date.split('-'))
 		//Triage par ordre croissant des dates 
 		elements.sort(function (a, b) { return new Date(a.dataset.date.split('-')).getTime() - new Date(b.dataset.date.split('-')).getTime()})
 		//Inversion des elements afin d'avoir le triage en ordre decroissant
@@ -396,7 +373,7 @@ function filter(filterindex) {
 		
 	//Créations des nouvelles cartes
 	elements.forEach((media) => {
-		// target = localisation de l'élément img ou video
+		// target = localisation de l'élément img ou video ou d'une nombre de coeur
 		let target
 		if(filterindex == 2 || filterindex == 1) {
 			target = media
@@ -419,7 +396,8 @@ function filter(filterindex) {
 		cardElementTitle.classList.add('card-photo-title')
 		cardElementLikeSection.classList.add('like-photo')
 		cardElementTitle.textContent = target.getAttribute('name')
-			
+		
+		//verification de la presence de la classe videoElement permettant la creation d'un element video ou image 
 		if (target.classList.contains('videoElement'))
 		{
 			cardElementNew = document.createElement('video')
@@ -447,7 +425,8 @@ function filter(filterindex) {
 	})
 
 	//Actualisation de la localisation et des events
-	heartEvent()
+	heartClickEvent()
+	heartEnterEvent()
 	mediasElementsEvent()
 	mediasElementsTabEvent() 
 }
@@ -455,10 +434,8 @@ function filter(filterindex) {
 //Ouverture fu formulaire
 function displayModal() {
 	modalContainer.style.display = 'flex'
-
 	document.getElementById('main').setAttribute('tabindex', '-1')
 	modal.focus()
-
 	profilCardTab(-1)
 	photosSectionTab(-1)
 	filterDropDown.setAttribute('tabindex', '-1')
@@ -467,9 +444,7 @@ function displayModal() {
 //Fermeture du formulaire
 function closeModal() { 
 	modalContainer.style.display = 'none' 
-
 	document.getElementById('main').setAttribute('tabindex', '0')
-
 	modal.focus()
 	profilCardTab(1)
 	photosSectionTab(1)
