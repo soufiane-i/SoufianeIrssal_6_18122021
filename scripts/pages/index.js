@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
+
 //Fonction permettant de récuperer les informations sur les photogrpahes dans le JSON 
 async function getPhotographers() {
 	// Penser à remplacer par les données récupérées dans le json
@@ -37,3 +40,6 @@ async function init() {
 }
 
 init()
+
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */

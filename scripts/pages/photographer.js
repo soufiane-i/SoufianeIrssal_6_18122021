@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-/*global some_unused_var*/
+/* eslint-enable no-unused-vars */
 
 const header = document.querySelector('header')
 const logo = document.querySelector('.logo')
@@ -11,7 +11,6 @@ const likeNPrice = document.querySelector('.like-and-price')
 let heartTotal = document.querySelector('.like-number')
 let hearts = document.getElementsByClassName('heart')
 let mediasElements = document.getElementsByClassName('media')
-let cardsPhotoContainer = document.getElementsByClassName('card-photo-container')
 let likesPhotos = document.getElementsByClassName('like-photo')
 const lightbox = document.querySelector('.lightbox-modal')
 let lightboxContainer = document.querySelector('.lightbox-container')
@@ -241,6 +240,10 @@ let prevFilterIndex
 let actualFilterIndex
 function checkKey(e) {
 	e = e || window.event
+
+	if (e.keyCode == '13' && dateFilter === document.activeElement) {
+		console.log('ifnrfj')
+	}
 	//flèche gauche
 	if (e.keyCode == '37') {
     	lightboxSliding('previous')
@@ -257,7 +260,7 @@ function checkKey(e) {
 			lightboxClose()
 		}	 
 		//Fleche haut sur filtre
-	} else if (e.keyCode == '38' && filterDropDown === document.activeElement) {
+	} else if ((e.keyCode == '38') && filterDropDown === document.activeElement) {
 		prevFilterIndex = filterDropDown.selectedIndex
 		actualFilterIndex = prevFilterIndex - 1
 		if (actualFilterIndex < 0) actualFilterIndex = 0
@@ -298,14 +301,20 @@ function lightboxSliding(direction) {
 		let actualImgName = document.querySelector('.lightbox-img').getAttribute('name')
 		actualElement = mediasElements.namedItem(actualImgName)
 	}
-	
+
 	//Direction == 'next' correspond au next appelé dans la fonction nextMedia et 'previous' l'inverse. En fonction du sens souhaité on navigue dans le tableau media grace à la propriété nextSibling ou previousSibling
 	if (direction == 'next') {
-		nextElement = actualElement.parentNode.parentNode.nextSibling.childNodes[0].childNodes[0]
+		if (actualElement.parentNode.parentNode.nextSibling == null) {
+			return
+		} else nextElement = actualElement.parentNode.parentNode.nextSibling.childNodes[0].childNodes[0]
+			
 	} else {
-		nextElement = actualElement.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0]
+		if (actualElement.parentNode.parentNode.previousSibling.childNodes[0] == undefined ) {
+			return
+		} else nextElement = actualElement.parentNode.parentNode.previousSibling.childNodes[0].childNodes[0]
 	}
 		
+
 	// On récupère le nom et le src de l'élément suivant  à afficher
 	let nextElementName = nextElement.getAttribute('name') 
 	let nextElementSrc = nextElement.src
@@ -331,22 +340,21 @@ function lightboxSliding(direction) {
 
 //Filtre------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Ecoute du clique sur les filtres
-titleFilter.addEventListener('click', titleIndex)
-popularityFilter.addEventListener('click', popularityIndex)
-dateFilter.addEventListener('click', dateIndex)
-
-//Choix de filtre selon l'index dans le filtre
-function popularityIndex() { filter(0) }
-
-function dateIndex() { filter(1) }
-
-function titleIndex() { filter(2) }
+function getSelectValue() {
+	let selectedValue = document.getElementById('filters-dropdown').value
+	if (selectedValue === 'Titre') {
+		filter(2)
+	} else if (selectedValue === 'Date') {
+		filter(1)
+	} else if (selectedValue === 'Popularite') {
+		filter(0)
+	}
+}
 
 //Fonction de filtrage
 function filter(filterindex) {
 	let cardsPhoto = document.querySelectorAll('.card-photo')
 	let elements
-	
 	// Triage en fonction du filtre choisi
 	// Index 0 : popularite - Index 1 : date - Index 2 : titre
 	if(filterindex == 0) {
@@ -429,6 +437,8 @@ function filter(filterindex) {
 	heartEnterEvent()
 	mediasElementsEvent()
 	mediasElementsTabEvent() 
+	photosSectionTab(1)
+	profilCardTab(1)
 }
 
 //Ouverture fu formulaire
@@ -443,16 +453,13 @@ function displayModal() {
 
 //Fermeture du formulaire
 function closeModal() { 
+	let formBtn = document.querySelector('.contact_button')
+	console.log(formBtn)
 	modalContainer.style.display = 'none' 
-	document.getElementById('main').setAttribute('tabindex', '0')
-	modal.focus()
+	formBtn.focus()
 	profilCardTab(1)
 	photosSectionTab(1)
-	let medias = document.getElementsByClassName('media')
-	let mediasArray = [].slice.call(medias)
-	mediasArray.forEach(element => {
-		element.setAttribute('tabindex', '0')
-	})
+	filterTab(1)
 }
 
 //Gestion de la possibilité de naviguer dans le profil au clavier
@@ -500,3 +507,7 @@ function lightBoxTab(tabindexNumber) {
 function filterTab(tabindexNumber) {
 	filterDropDown.setAttribute('tabindex', tabindexNumber)
 }
+
+
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */

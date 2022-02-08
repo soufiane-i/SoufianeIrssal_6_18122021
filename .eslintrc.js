@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
+
 module.exports = {
 	'env': {
 		'browser': true,
@@ -9,9 +12,6 @@ module.exports = {
 		'ecmaVersion': 'latest'
 	},
 	'rules': {
-		'prettier/prettier': [
-			'error'
-		],
 		'indent': [
 			'error',
 			'tab'

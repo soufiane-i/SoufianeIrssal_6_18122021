@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
+
 function mediaFactory(data) {
 	//Attribution des data venant du json à des variables
 	const { id, photographerId, title, image, video, likes, date, price } = data
@@ -59,3 +62,6 @@ function mediaFactory(data) {
 
 	} return { id, photographerId, title, image, video, likes, date, price, getMediaCardDOM }
 } 
+
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */

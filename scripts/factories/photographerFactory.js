@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
+
 function photographerFactory(data) {
 	const { name, portrait, city, country, tagline, price, id } = data
 
@@ -72,7 +75,7 @@ function photographerFactory(data) {
 
 		photographerContent.classList.add('photographer-content')
 		photographerProfile.classList.add('photographer-profile')
-		photographerBtn.classList.add('contact_button')
+		photographerBtn.classList.add('contact_buttonDiv')
 		infosDiv.classList.add('infosDiv')
 		h2.classList.add('photographer-name')
 		h2.setAttribute('tabindex', '0')
@@ -106,3 +109,5 @@ function photographerFactory(data) {
 } 
 
 
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
