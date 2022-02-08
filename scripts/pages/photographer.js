@@ -17,16 +17,13 @@ let lightboxContainer = document.querySelector('.lightbox-container')
 const lightboxCrossBtn = document.querySelector('.lightbox-close')
 const lightboxPrev = document.querySelector('.lightbox-prev-i')
 const lightboxNext = document.querySelector('.lightbox-next-i')
-const popularityFilter = document.querySelector('.filter-popularity')
-const dateFilter = document.querySelector('.filter-date')
-const titleFilter = document.querySelector('.filter-title')
 
 // Récupération des infos d'un photographes selon l'id dans l'url
 async function getJsonElements(e){
 	//Récuperation de l'Id dans l'URL
 	getURLId()
 	// Récupération des données en json
-	let res = await fetch('/data/photographers.json')
+	let res = await fetch('./data/photographers.json')
 	if(res.ok){
 		data = await res.json()
 	} else {
@@ -241,9 +238,6 @@ let actualFilterIndex
 function checkKey(e) {
 	e = e || window.event
 
-	if (e.keyCode == '13' && dateFilter === document.activeElement) {
-		console.log('ifnrfj')
-	}
 	//flèche gauche
 	if (e.keyCode == '37') {
     	lightboxSliding('previous')
@@ -454,7 +448,6 @@ function displayModal() {
 //Fermeture du formulaire
 function closeModal() { 
 	let formBtn = document.querySelector('.contact_button')
-	console.log(formBtn)
 	modalContainer.style.display = 'none' 
 	formBtn.focus()
 	profilCardTab(1)

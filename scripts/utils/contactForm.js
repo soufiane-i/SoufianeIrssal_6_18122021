@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-enable no-unused-vars */
+
 const firstName = document.getElementById('firstname')
 const lastName = document.getElementById('lastname')
 const email = document.getElementById('email')
@@ -41,6 +44,11 @@ function submitClear(){
 	for(let i = 0; i<champs.length; i++){  // loop which clear form inputs 
 		champs[i].value = ''
 	}
+	profilCardTab(1)
+	photosSectionTab(1)
+	filterTab(1)
+	let formBtn = document.querySelector('.contact_button')
+	formBtn.focus()
 }
   
 function firstNameCheck() {
@@ -62,7 +70,7 @@ function lastNameCheck() {
 		formDataArray.push('check')
 		lastName.classList.remove('form-champ-error')
 		lastName.setAttribute('aria-invalid', 'false')
-		console.log(lastName)
+		console.log(lastName.value)
 	} else {
 		lastName.classList.add('form-champ-error')
 		lastName.setAttribute('aria-invalid', 'true')
