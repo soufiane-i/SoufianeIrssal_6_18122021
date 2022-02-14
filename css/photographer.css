@@ -136,7 +136,6 @@ option:hover {
 .card-photo-title {
     font-size: 16px;
     margin: 15px 0;
-    cursor: pointer;
 }
 
 .like-photo {
@@ -425,10 +424,19 @@ form textarea {
     border: 4px solid rgb(236, 31, 31);
 }
 
+.form-message-champ-error {
+    width: 96%;
+    height: 98px;
+    border-radius: 5px;
+    border: 4px solid rgb(236, 31, 31);
+}
+
 .form_close{
     position: absolute;
     right: 20px;
     top: 20px;
     transform: scale(0.6);
 }
+
+
 

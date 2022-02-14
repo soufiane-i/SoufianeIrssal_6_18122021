@@ -10,7 +10,7 @@ const submitBtn = document.querySelector('.contact_button')
 
 let firstNameRegex = /^[a-z-]{2,}$/i
 let lastNameRegex = /^[a-z ,.'-]{2,}$/i
-let messageRegex = /^[a-z ,.'-]{0,}$/i
+let messageRegex = /^[a-z ,.'-]{2,}$/i
 let emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 // variables
@@ -93,10 +93,10 @@ function emailCheck() {
 function messageCheck() {
 	if (messageRegex.test(message.value.trim())) {
 		formDataArray.push('check')
-		message.classList.remove('form-champ-error')
+		message.classList.remove('form-message-champ-error')
 		console.log(message.value) 
 	} else {
-		message.classList.add('form-champ-error')
+		message.classList.add('form-message-champ-error')
 	}
 }
 

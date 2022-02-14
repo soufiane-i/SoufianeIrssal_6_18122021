@@ -115,8 +115,17 @@ function heartsIncrementation(e) {
 	if (e.key === 'Enter') {
 		targetHeart = e.target.firstChild
 	} else targetHeart = e.target.parentNode.firstChild
-	heartTotal.textContent++
-	targetHeart.textContent++ 
+
+	if(targetHeart.classList.contains('incremented')) {
+		heartTotal.textContent--
+		targetHeart.classList.remove('incremented')
+		targetHeart.textContent--
+	} else {
+		heartTotal.textContent++
+		targetHeart.classList.add('incremented')
+		targetHeart.textContent++ 
+	}
+
 }
 //Ecoute des cliques sur les elements de la section media--------------------------------------------------------------------------------------------------------------------------------------------
 function mediasElementsEvent() { 
