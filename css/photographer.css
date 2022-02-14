@@ -1,13 +1,8 @@
-header a {
-    margin-left: 0;
-}
-
-
 /* Photograph-header  ----------------------------------------------*/
 .photographer-content {
     background-color: #FAFAFA;
     height: 370px;
-    margin: 40px 100px;
+    margin: 40px 60px;
     padding: 0 50px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr ;
@@ -46,9 +41,10 @@ header a {
 }
 
 .photographer-name {
-    font-size: 64px;
+    font-size: 60px;
     margin-bottom: 0px;   
     color: #D3573C;
+    font-weight: normal;
 }
 
 .photographer-city {
@@ -67,13 +63,14 @@ header a {
 .filter-section {
     display: flex;  
     font-size: 18px;
-    margin-left: 100px;
+    margin-left: 60px;
     margin-bottom: 60px;
 }
 
 .filter-label {
     margin-top: 5px;
     margin-right: 20px;
+    font-weight: bold;
 }
 
 #filters-dropdown {
@@ -114,22 +111,22 @@ option:hover {
 }
 
 .card-photo-container {
-    width: 300px;
-    height: 250px;
+    width: 350px;
+    height: 300px;
     cursor: pointer;
     background-color: white;
     border: none;
 }
 
 .card-photo-container img, .card-photo-container video {
-    width: 300px;
-    height: 250px;
+    width: 350px;
+    height: 300px;
     object-fit: cover;
     border-radius: 5px;
 }
 
 .card-photo-bottom {
-    width: 300px;
+    width: 350px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -148,7 +145,7 @@ option:hover {
 }
 
 .like-local-number, .like-number {
-    font-size: 18px;
+    font-size: 20px;
     margin-right: 0px;
 }
 
@@ -385,7 +382,6 @@ form textarea {
     font-size: 18px;
     font-weight: bold;
     color: white;
-    padding: 11px;
     width: 170px;
     height: 70px;
     border: none;

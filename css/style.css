@@ -19,6 +19,10 @@ header {
     height: 90px;
 }
 
+header a {
+ margin-left: 60px;
+}
+
 h1 {
     color: #901C1C;
     margin-right: 100px;
@@ -26,7 +30,6 @@ h1 {
 
 .logo {
     height: 50px;
-    margin-left: 100px;
 }
 
 .photographer_section {
