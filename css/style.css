@@ -33,7 +33,8 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .profile .infosDiv {

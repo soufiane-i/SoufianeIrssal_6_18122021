@@ -110,26 +110,26 @@ option:hover {
 
 .card-photo {
     padding-bottom: 30px;
-    margin: auto 108px;
+    margin: auto;
 }
 
 .card-photo-container {
-    width: 420px;
-    height: 360px;
+    width: 300px;
+    height: 250px;
     cursor: pointer;
     background-color: white;
     border: none;
 }
 
 .card-photo-container img, .card-photo-container video {
-    width: 420px;
-    height: 360px;
+    width: 300px;
+    height: 250px;
     object-fit: cover;
     border-radius: 5px;
 }
 
 .card-photo-bottom {
-    width: 420px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -137,18 +137,19 @@ option:hover {
 }
 
 .card-photo-title {
-    font-size: 20px;
+    font-size: 16px;
     margin: 15px 0;
     cursor: pointer;
 }
 
 .like-photo {
-    width: 16%;
+    width: 18%;
+    text-align: right;
 }
 
 .like-local-number, .like-number {
-    font-size: 24px;
-    margin-right: 5px;
+    font-size: 18px;
+    margin-right: 0px;
 }
 
 .like-local-number {
@@ -158,6 +159,8 @@ option:hover {
 
 .heart {
     cursor: pointer;
+    width: 20px;
+    transform: scale(0.7) translateY(1px);
 }
 
 .like-access {
@@ -179,7 +182,8 @@ option:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30px
+    padding: 0 30px;
+    z-index: 3;
 }
 
 .price  {
@@ -204,6 +208,7 @@ option:hover {
     align-items: center;
     background-color: white;
     padding-top: 20px;
+    z-index: 4;
 }
 
 .lightbox-modal-disable {
@@ -212,16 +217,16 @@ option:hover {
 }
 
 .lightbox-img {
-    width: 1050px;
-    height: 740px;
+    width: 800px;
+    height: 500px;
     object-fit: contain;
     border-radius: 5px;
     display: flex;
 }
 
 .lightbox-modal video {
-    width: 1050px;
-    height: 740px;
+    width: 750px;
+    height: 500px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -249,7 +254,8 @@ option:hover {
 .lightbox-modal .lightbox-close {
     position: absolute;
     top: 40px;
-    right: 250px;
+    right: 210px;
+    font-weight: normal;
 }
 
 .lightbox-next {
@@ -282,6 +288,10 @@ option:hover {
     
 }
 
+#formContact {
+    margin-bottom: 15px;
+}
+
 .modal {
     position: relative;
     border-radius: 5px;
@@ -312,7 +322,7 @@ option:hover {
 }
 
 .modal .modal-header h2 {
-    font-size: 45px;
+    font-size: 32px;
     font-weight: normal;
     margin: 0;
     
@@ -324,7 +334,7 @@ option:hover {
 }
 
 .modal .modal-header span {
-    font-size: 50px;
+    font-size: 32px;
 }
 
 form {
@@ -336,7 +346,7 @@ form {
 
 form label {
     color: #312E2E;
-    font-size: 28px;
+    font-size: 22px;
 }
 
 form div {
@@ -349,7 +359,7 @@ form div {
 
 form input {
     width: 96%;
-    height: 60px;
+    height: 45px;
     border: none;
     border-radius: 5px;
     padding: 0 10px;
@@ -391,7 +401,7 @@ form textarea {
     font-size: 18px;
     font-weight: bold;
     color: white;
-    padding: 11px;
+    padding: 6px;
     width: 170px;
     height: 70px;
     border: none;
@@ -414,7 +424,7 @@ form textarea {
 
 .form-champ-error {
     width: 96%;
-    height: 52px;
+    height: 37px;
     border-radius: 5px;
     border: 4px solid rgb(236, 31, 31);
 }
@@ -423,6 +433,6 @@ form textarea {
     position: absolute;
     right: 20px;
     top: 20px;
-    transform: scale(0.8);
+    transform: scale(0.6);
 }
 
