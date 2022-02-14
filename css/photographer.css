@@ -187,8 +187,16 @@ option:hover {
     font-size: 26px;
 }
 
+.like {
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .like-and-price .icon {
     color: black;
+    text-align: right;
 }
 
 
