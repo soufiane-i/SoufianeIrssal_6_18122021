@@ -95,7 +95,7 @@ async function init() {
 	photosSectionTab(1)
 	profilCardTab(1)
 	filterTab(1)
-	header.focus()
+	logo.focus()
 }
 init()
 
@@ -467,7 +467,6 @@ function profilCardTab(tabindexNumber) {
 	cardInfosDiv.setAttribute('tabindex', tabindexNumber)
 	cardPhoto.setAttribute('tabindex', tabindexNumber)
 	logo.setAttribute('tabindex', tabindexNumber)
-	header.setAttribute('tabindex', tabindexNumber)
 	filterLabel.setAttribute('tabindex', tabindexNumber)
 	likeNPrice.setAttribute('tabindex', tabindexNumber)
 }
